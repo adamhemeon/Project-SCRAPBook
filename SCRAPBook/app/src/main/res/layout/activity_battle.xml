@@ -6,4 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".BattleActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewPlayerWins"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/imageViewPlayerPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"
+            android:contentDescription="@string/imageViewPlayerPhoto" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textViewBattleVS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewBattleVS"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/imageViewComputerPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"
+            android:contentDescription="@string/imageViewComputerPhoto" />
+
+        <TextView
+            android:id="@+id/textViewComputerWins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewComputerWins"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
