@@ -92,14 +92,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="CheckBox" />
+
+                <Button
+                    android:id="@+id/btnReturnToMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnReturnToMenu" />
             </LinearLayout>
         </ScrollView>
-
-        <Button
-            android:id="@+id/btnReturnToMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btnReturnToMenu" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

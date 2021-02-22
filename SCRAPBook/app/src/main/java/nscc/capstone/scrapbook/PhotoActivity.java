@@ -18,7 +18,7 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.activity_photo);
 
         // Controls
         textViewSelectionHeader = findViewById(R.id.textViewSelectionHeader);
@@ -42,7 +42,7 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("BattleActivity"); // Goto Battle Activity
+                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
                 // TODO: Pack Bundle - send to Intent
                 startActivityForResult(i, 1);
             }

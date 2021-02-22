@@ -38,7 +38,7 @@ public class TitleActivity extends AppCompatActivity {
         // Controls
         imageViewTitle = findViewById(R.id.imageViewTitle);
 
-        btnPlayVsAI = findViewById(R.id.btnPlayVsAI);
+        btnPlayVsAI = (Button)findViewById(R.id.btnPlayVsAI);
         btnPlayOnline = findViewById(R.id.btnPlayOnline);
         btnSettings = findViewById(R.id.btnSettings);
 
@@ -47,10 +47,11 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("PhotoActivity"); // Goto Photo Activity
-//                Bundle extras = new Bundle();
-//                extras.putString("NAME",textViewName); // Example: Bundle a name
-//                i.putExtras(extras); // Put bundle in the intent
+                //openPhotoActivity();
+                Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
+////                Bundle extras = new Bundle();
+////                extras.putString("NAME",textViewName); // Example: Bundle a name
+////                i.putExtras(extras); // Put bundle in the intent
                 startActivityForResult(i,1);
             }
         });
@@ -59,11 +60,16 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("SettingsActivity"); // Goto Settings Activity
+                Intent i = new Intent(TitleActivity.this, SettingsActivity.class); // Goto Settings Activity
                 startActivityForResult(i,1);
             }
         });
     }//end onCreate
+
+    private void openPhotoActivity() {
+        Intent i = new Intent(this, PhotoActivity.class);
+        startActivity(i);
+    }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override

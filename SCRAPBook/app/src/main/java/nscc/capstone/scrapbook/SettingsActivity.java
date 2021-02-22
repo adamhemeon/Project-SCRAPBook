@@ -15,7 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.activity_settings);
 
         // Controls
         textViewSettingsHeader = findViewById(R.id.textViewSettingsHeader);
@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("TitleActivity"); // Goto Title Activity
+                Intent i = new Intent(SettingsActivity.this, TitleActivity.class); // Goto Title Activity
                 startActivityForResult(i,1);
             }
         });

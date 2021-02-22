@@ -16,7 +16,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.activity_battle);
 
         // Controls
         textViewPlayerWins = findViewById(R.id.textViewPlayerWins);
@@ -33,7 +33,7 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("ScoreActivity"); // Goto Score Activity
+                Intent i = new Intent(BattleActivity.this, ScoreActivity.class); // Goto Score Activity
                 startActivityForResult(i, 1);
             }
         });

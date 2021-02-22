@@ -15,7 +15,7 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.activity_score);
 
         // Controls
         textViewScore = findViewById(R.id.textViewScore);
@@ -27,8 +27,8 @@ public class ScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("TitleActivity"); // Goto Title Activity
-                startActivityForResult(i, 1);
+                Intent i = new Intent(ScoreActivity.this, TitleActivity.class); // Goto Title Activity
+                startActivityForResult(i,1);
             }
         });
     }//end onCreate
