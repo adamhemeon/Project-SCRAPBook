@@ -47,7 +47,7 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("PhotoActivity"); // Goto Quiz Activity
+                Intent i = new Intent("PhotoActivity"); // Goto Photo Activity
                 startActivityForResult(i,1);
             }
         });
@@ -56,7 +56,7 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent("SettingsActivity"); // Goto Quiz Activity
+                Intent i = new Intent("SettingsActivity"); // Goto Settings Activity
                 startActivityForResult(i,1);
             }
         });
