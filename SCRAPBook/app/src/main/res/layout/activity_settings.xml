@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvSettingsHeading"
+            android:id="@+id/textViewSettingsHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnSettings"
@@ -96,7 +96,7 @@
         </ScrollView>
 
         <Button
-            android:id="@+id/return"
+            android:id="@+id/btnReturnToMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnReturnToMenu" />

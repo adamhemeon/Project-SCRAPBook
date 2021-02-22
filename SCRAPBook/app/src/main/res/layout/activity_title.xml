@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:accessibilityHeading="true"
             android:accessibilityPaneTitle="@string/app_name"
-            app:srcCompat="@drawable/SCRAPBookTitle"
+            app:srcCompat="@drawable/title"
             android:contentDescription="@string/app_name" />
 
         <Button
