@@ -48,6 +48,9 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent("PhotoActivity"); // Goto Photo Activity
+//                Bundle extras = new Bundle();
+//                extras.putString("NAME",textViewName); // Example: Bundle a name
+//                i.putExtras(extras); // Put bundle in the intent
                 startActivityForResult(i,1);
             }
         });

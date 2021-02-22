@@ -16,6 +16,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingsActivity"
+            android:label="Settings">
+            <intent-filter>
+
+                <action android:name= "SettingsActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".PhotoActivity"
+            android:label="Photo">
+            <intent-filter>
+
+                <action android:name= "PhotoActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".BattleActivity"
+            android:label="Battle">
+            <intent-filter>
+
+                <action android:name= "BattleActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".ScoreActivity"
+            android:label="Score">
+            <intent-filter>
+
+                <action android:name= "ScoreActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
