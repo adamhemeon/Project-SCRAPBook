@@ -6,6 +6,7 @@ import android.view.*;
 import android.widget.*;
 import android.content.*;
 
+//MY NAME IS BRADY
 public class BattleActivity extends AppCompatActivity {
 
     // Controls
