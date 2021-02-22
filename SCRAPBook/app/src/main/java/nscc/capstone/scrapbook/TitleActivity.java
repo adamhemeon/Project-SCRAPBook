@@ -26,6 +26,8 @@ import android.content.*;
  */
 public class TitleActivity extends AppCompatActivity {
 
+    // This is a test comment KL
+
     // Controls
     ImageView imageViewTitle;
     Button btnPlayVsAI, btnPlayOnline, btnSettings;
