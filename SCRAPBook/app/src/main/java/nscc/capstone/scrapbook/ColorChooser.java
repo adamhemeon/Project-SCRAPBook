@@ -1,10 +1,15 @@
 package nscc.capstone.scrapbook;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
+import androidx.annotation.ColorInt;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -14,18 +19,19 @@ public class ColorChooser {
 
     public ColorChooser(){}
 
-    public int DetermineColor(ImageView image)
+    public int DetermineColor(ImageView image, Context context)
     {
         try
         {
-            System.out.println("-------------------------------------");
 
             //Loading an image into memory
 
             /////
             Drawable img = image.getDrawable();
-            Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            //Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bit = downScaleBitmap(image,context);
             /////
+
 
             //Getting the amount of total pixels in an image, which is used to determine the percentage of colour a photo is
             long totalPixels = (long) img.getIntrinsicWidth() * img.getIntrinsicHeight();
@@ -52,7 +58,7 @@ public class ColorChooser {
                 {
 
                     //Using a color object to get the RGB value from the current pixel in the loop
-                    int color = bit.getPixel(x,y);
+                   int color = bit.getPixel(x,y);
 
 
 
@@ -115,5 +121,13 @@ public class ColorChooser {
             System.out.println(e);
             return 0;
         }
+    }
+
+    private Bitmap downScaleBitmap(ImageView image, Context context)
+    {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = 4;
+        return BitmapFactory.decodeResource(context.getResources(), image.getId(), options);
     }
 }
