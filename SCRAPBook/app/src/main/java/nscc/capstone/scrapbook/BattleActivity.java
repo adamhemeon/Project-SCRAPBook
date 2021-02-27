@@ -27,6 +27,18 @@ public class BattleActivity extends AppCompatActivity {
         imageViewPlayerPhoto = findViewById(R.id.imageViewPlayerPhoto);
         imageViewComputerPhoto = findViewById(R.id.imageViewComputerPhoto);
 
+        //Added the photos by code, was having issues doing it by GUI.
+        imageViewPlayerPhoto.setImageResource(R.drawable.arch);
+        imageViewPlayerPhoto.setAdjustViewBounds(true);
+        imageViewPlayerPhoto.setMaxWidth(400);
+        imageViewPlayerPhoto.setMaxHeight(400);
+        imageViewComputerPhoto.setImageResource(R.drawable.ballons);
+        imageViewComputerPhoto.setAdjustViewBounds(true);
+        imageViewComputerPhoto.setMaxHeight(400);
+        imageViewComputerPhoto.setMaxWidth(400);
+
+
+
         btnTempGoToScore = findViewById(R.id.btnTempGoToScore);
 
         // Listeners
