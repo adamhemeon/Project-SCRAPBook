@@ -7,14 +7,19 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.content.*;
+import java.util.ArrayList;
+import java.util.Random;
 
-//MY NAME IS BRADY
 public class BattleActivity extends AppCompatActivity {
 
     // Controls
     TextView textViewPlayerWins, textViewComputerWins, textViewBattleVS;
     ImageView imageViewPlayerPhoto, imageViewComputerPhoto;
     Button btnTempGoToScore;
+
+    // AI Images
+    Random random = new Random();
+    ArrayList<String> aiImages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,19 @@ public class BattleActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
+
+        // Randomly get 10 photo names
+        for (int i = 0; i < 10; i++){
+            aiImages.add("img_" + random.nextInt(49));
+        }
+
+        // Set the AI image from the aiImages string titles
+        imageViewComputerPhoto.setAdjustViewBounds(true);
+        imageViewComputerPhoto.setMaxWidth(400);
+        imageViewComputerPhoto.setMaxHeight(400);
+        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
+
+
     }//end onCreate
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
