@@ -1,11 +1,12 @@
 package nscc.capstone.scrapbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Bitmap;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.content.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -32,6 +33,24 @@ public class BattleActivity extends AppCompatActivity {
 
         imageViewPlayerPhoto = findViewById(R.id.imageViewPlayerPhoto);
         imageViewComputerPhoto = findViewById(R.id.imageViewComputerPhoto);
+
+        //Added the photos by code, was having issues doing it by GUI.
+        //imageViewPlayerPhoto.setImageResource(R.drawable.beach);
+        imageViewPlayerPhoto.setAdjustViewBounds(true);
+        imageViewPlayerPhoto.setMaxWidth(400);
+        imageViewPlayerPhoto.setMaxHeight(400);
+        //imageViewComputerPhoto.setImageResource(R.drawable.ballons);
+        imageViewComputerPhoto.setAdjustViewBounds(true);
+        imageViewComputerPhoto.setMaxHeight(400);
+        imageViewComputerPhoto.setMaxWidth(400);
+
+        ColorChooser colorChooser = new ColorChooser();
+        int playerColorResult = colorChooser.DetermineColor(imageViewPlayerPhoto,this);
+        int computerColorResult = colorChooser.DetermineColor(imageViewComputerPhoto,this);
+
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+        int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
+
 
         btnTempGoToScore = findViewById(R.id.btnTempGoToScore);
 
