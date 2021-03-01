@@ -28,8 +28,8 @@ public class ColorChooser {
 
             /////
             Drawable img = image.getDrawable();
-            //Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Bitmap bit = downScaleBitmap(image,context);
+            Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            //Bitmap bit = downScaleBitmap(image,context);
             /////
 
 
@@ -96,8 +96,6 @@ public class ColorChooser {
             if(redPixels > bluePixels && redPixels > greenPixels)
             {
                 return 1;
-
-
             }
             else if(greenPixels > redPixels && greenPixels > bluePixels)
             {
