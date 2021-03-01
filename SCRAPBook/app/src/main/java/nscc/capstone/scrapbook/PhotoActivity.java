@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.*;
+import android.provider.MediaStore;
 import android.view.*;
 import android.widget.*;
 import android.content.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -21,6 +23,8 @@ public class PhotoActivity extends AppCompatActivity {
     ImageView imageViewPhoto1, imageViewPhoto2, imageViewPhoto3,
             imageViewPhoto4, imageViewPhoto5, imageViewPhoto6,
             imageViewPhoto7, imageViewPhoto8, imageViewPhoto9;
+    ClipData cd;
+    ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera = findViewById(R.id.btnCamera);
         btnGallery = findViewById(R.id.btnGallery);
         btnStart = findViewById(R.id.btnStart);
+
+        btnStart.setEnabled(false);
 
         imageViewPhoto1 = findViewById(R.id.imageViewPhoto1);
         imageViewPhoto2 = findViewById(R.id.imageViewPhoto2);
@@ -51,9 +57,9 @@ public class PhotoActivity extends AppCompatActivity {
 
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
                 // TODO: Pack Bundle - send to Intent
-//                Bundle extras = new Bundle();
-//                extras.putString("NAME",textViewName); // Example: Bundle a name
-//                i.putExtras(extras); // Put bundle in the intent
+                //Bundle extras = new Bundle();
+                //extras.putParcelableArrayList("bitmapList", bitmapList); // Example: Bundle a name
+                // i.putExtras(extras); // Put bundle in the intent
                 startActivityForResult(i, 1);
             }
         });
@@ -68,7 +74,11 @@ public class PhotoActivity extends AppCompatActivity {
                 i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 i.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(i,"Select Image"), 2);
+                try {
+                    startActivityForResult(Intent.createChooser(i,"Select Image"), 2);
+                } catch (ActivityNotFoundException e) {
+
+                }
             }
         });
 
@@ -76,14 +86,13 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(Intent.ACTION_PICK); // Goto Battle Activity
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // TODO: Camera functionality
-//                Bundle extras = new Bundle();
-//                extras.putString("NAME",textViewName); // Example: Bundle a name
-//                i.putExtras(extras); // Put bundle in the intent
-//                i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                i.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(Intent.createChooser(i,"Select Image"), 1);
+                try {
+                    startActivityForResult(i, 3);
+                } catch (ActivityNotFoundException e) {
+
+                }
             }
         });
 
@@ -94,62 +103,90 @@ public class PhotoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int result, Intent intent) {
         super.onActivityResult(requestCode, result, intent);
 
+        Bitmap bitmap;
+        int photoCount = bitmapList.size();
+
         if(requestCode == 2) {
-            ClipData cd = intent.getClipData();
-            Bitmap bitmap;
-            for (int i = 0; i < cd.getItemCount(); i++) {
+            bitmapList.clear();
+            cd = ClipData.newPlainText("", "");
+            cd = intent.getClipData();
+
+            int cdSize = cd.getItemCount();
+
+            for (int i = 0; i < cdSize; i++) {
                 if (result == Activity.RESULT_OK) {
                     ClipData.Item item = cd.getItemAt(i);
                     Uri targetUri = item.getUri();
                     try {
                         // TODO: get width from somewhere else
                         bitmap = Bitmap.createScaledBitmap(BitmapFactory.
-                                decodeStream(getContentResolver().openInputStream(targetUri)),
+                                        decodeStream(getContentResolver().openInputStream(targetUri)),
                                 imageViewPhoto1.getWidth(),
                                 imageViewPhoto1.getHeight(), true);
 
-                        switch (i) {
-                            case 0:
-                                imageViewPhoto1.setImageBitmap(bitmap);
-                                break;
-                            case 1:
-                                imageViewPhoto2.setImageBitmap(bitmap);
-                                break;
-                            case 2:
-                                imageViewPhoto3.setImageBitmap(bitmap);
-                                break;
-                            case 3:
-                                imageViewPhoto4.setImageBitmap(bitmap);
-                                break;
-                            case 4:
-                                imageViewPhoto5.setImageBitmap(bitmap);
-                                break;
-                            case 5:
-                                imageViewPhoto6.setImageBitmap(bitmap);
-                                break;
-                            case 6:
-                                imageViewPhoto7.setImageBitmap(bitmap);
-                                break;
-                            case 7:
-                                imageViewPhoto8.setImageBitmap(bitmap);
-                                break;
-                            case 8:
-                                imageViewPhoto9.setImageBitmap(bitmap);
-                                break;
-
-//                    imageView.setImageBitmap(bitmap);
-//                    imageView.setLayoutParams(new android.view.ViewGroup.LayoutParams(80,60));
-//                    imageView.setMaxHeight(50);
-//                    imageView.setMaxWidth(50);
-                        }
-
+                        bitmapList.add(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
             }
+        } else if (requestCode == 3) {
+            Bundle extras = intent.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("bitmapList");
+            bitmapList.add(imageBitmap);
+
+        }
+
+        photoCount = bitmapList.size();
+
+        if (photoCount <= 9) {
+            for (int j = 0; j < photoCount; j++) {
+                switch (j) {
+                    case 0:
+                        imageViewPhoto1.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 1:
+                        imageViewPhoto2.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 2:
+                        imageViewPhoto3.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 3:
+                        imageViewPhoto4.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 4:
+                        imageViewPhoto5.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 5:
+                        imageViewPhoto6.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 6:
+                        imageViewPhoto7.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 7:
+                        imageViewPhoto8.setImageBitmap(bitmapList.get(j));
+                        break;
+                    case 8:
+                        imageViewPhoto9.setImageBitmap(bitmapList.get(j));
+                        break;
+                    }
+            }
+            if(photoCount == 9) {
+                btnStart.setEnabled(true);
+            }
+            textViewNumPhotos.setText(photoCount + "/9");
+        }else{
+            btnStart.setEnabled(false);
+            Context context = getApplicationContext();
+            CharSequence text = "Too many images selected!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
         }
     }
+
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
