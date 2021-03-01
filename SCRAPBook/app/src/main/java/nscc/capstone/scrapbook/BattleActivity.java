@@ -51,6 +51,9 @@ public class BattleActivity extends AppCompatActivity {
         }
 
         // Set the AI image from the aiImages string titles
+        imageViewComputerPhoto.setAdjustViewBounds(true);
+        imageViewComputerPhoto.setMaxWidth(400);
+        imageViewComputerPhoto.setMaxHeight(400);
         imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
 
 
