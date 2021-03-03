@@ -12,6 +12,7 @@ import android.view.*;
 import android.widget.*;
 import android.content.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class PhotoActivity extends AppCompatActivity {
             imageViewPhoto4, imageViewPhoto5, imageViewPhoto6,
             imageViewPhoto7, imageViewPhoto8, imageViewPhoto9;
     ClipData cd;
-    ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
+    ArrayList<Bitmap> bitmapList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,12 @@ public class PhotoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
-                // TODO: Pack Bundle - send to Intent
-                //Bundle extras = new Bundle();
-                //extras.putParcelableArrayList("bitmapList", bitmapList); // Example: Bundle a name
-                // i.putExtras(extras); // Put bundle in the intent
-                startActivityForResult(i, 1);
+                // Get first image and compress into a byte array to be passed on.
+                Bitmap firstImage = bitmapList.get(0);
+                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+                firstImage.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
+                i.putExtra("Image", byteStream.toByteArray());
+                startActivity(i);
             }
         });
 
