@@ -23,8 +23,10 @@ public class PhotoActivity extends AppCompatActivity {
     ImageView imageViewPhoto1, imageViewPhoto2, imageViewPhoto3,
             imageViewPhoto4, imageViewPhoto5, imageViewPhoto6,
             imageViewPhoto7, imageViewPhoto8, imageViewPhoto9;
+
     ClipData cd;
     ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
+    int photoCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +53,133 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto9 = findViewById(R.id.imageViewPhoto9);
 
         // Listeners
+        imageViewPhoto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 1) {
+                    bitmapList.remove(0);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 2) {
+                    bitmapList.remove(1);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 3) {
+                    bitmapList.remove(2);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 4) {
+                    bitmapList.remove(3);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 5) {
+                    bitmapList.remove(4);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 6) {
+                    bitmapList.remove(5);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 7) {
+                    bitmapList.remove(6);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 8) {
+                    bitmapList.remove(7);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
+        imageViewPhoto9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bitmapList.size() >= 9) {
+                    bitmapList.remove(8);
+                    setDefaultImages();
+                    setImages();
+                    photoCount = bitmapList.size();
+                    setImageCount();
+                }
+            }
+        });
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
                 // TODO: Pack Bundle - send to Intent
-                //Bundle extras = new Bundle();
+                Bundle extras = new Bundle();
                 //extras.putParcelableArrayList("bitmapList", bitmapList); // Example: Bundle a name
                 // i.putExtras(extras); // Put bundle in the intent
+
                 startActivityForResult(i, 1);
             }
         });
@@ -104,10 +224,10 @@ public class PhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, result, intent);
 
         Bitmap bitmap;
-        int photoCount = bitmapList.size();
+        photoCount = bitmapList.size();
 
         if(requestCode == 2) {
-            bitmapList.clear();
+            //bitmapList.clear();
             cd = ClipData.newPlainText("", "");
             cd = intent.getClipData();
 
@@ -140,37 +260,9 @@ public class PhotoActivity extends AppCompatActivity {
         photoCount = bitmapList.size();
 
         if (photoCount <= 9) {
-            for (int j = 0; j < photoCount; j++) {
-                switch (j) {
-                    case 0:
-                        imageViewPhoto1.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 1:
-                        imageViewPhoto2.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 2:
-                        imageViewPhoto3.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 3:
-                        imageViewPhoto4.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 4:
-                        imageViewPhoto5.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 5:
-                        imageViewPhoto6.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 6:
-                        imageViewPhoto7.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 7:
-                        imageViewPhoto8.setImageBitmap(bitmapList.get(j));
-                        break;
-                    case 8:
-                        imageViewPhoto9.setImageBitmap(bitmapList.get(j));
-                        break;
-                    }
-            }
+
+            setImages();
+
             if(photoCount == 9) {
                 btnStart.setEnabled(true);
             }
@@ -187,6 +279,61 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
+    protected void setImages(){
+        int photoCount = bitmapList.size();
+        for (int j = 0; j < photoCount; j++) {
+            switch (j) {
+                case 0:
+                    imageViewPhoto1.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 1:
+                    imageViewPhoto2.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 2:
+                    imageViewPhoto3.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 3:
+                    imageViewPhoto4.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 4:
+                    imageViewPhoto5.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 5:
+                    imageViewPhoto6.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 6:
+                    imageViewPhoto7.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 7:
+                    imageViewPhoto8.setImageBitmap(bitmapList.get(j));
+                    break;
+                case 8:
+                    imageViewPhoto9.setImageBitmap(bitmapList.get(j));
+                    break;
+            }
+        }
+    }
+
+    protected void setDefaultImages(){
+        imageViewPhoto1.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto2.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto3.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto4.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto5.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto6.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto7.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto8.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto9.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    protected void setImageCount(){
+        if(photoCount == 9) {
+            btnStart.setEnabled(true);
+        } else {
+            btnStart.setEnabled(false);
+        }
+        textViewNumPhotos.setText(photoCount + "/9");
+    }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
