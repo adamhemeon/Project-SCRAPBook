@@ -19,7 +19,7 @@ public class ColorChooser {
 
     public ColorChooser(){}
 
-    public int DetermineColor(ImageView image, Context context)
+    public int DetermineColor(int imgId ,Context context)
     {
         try
         {
@@ -27,14 +27,15 @@ public class ColorChooser {
             //Loading an image into memory
 
             /////
-            Drawable img = image.getDrawable();
-            Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            //Bitmap bit = downScaleBitmap(image,context);
+            //Drawable img = image.getDrawable();
+            //Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bit = BitmapFactory.decodeResource(context.getResources(),imgId);
             /////
 
 
             //Getting the amount of total pixels in an image, which is used to determine the percentage of colour a photo is
-            long totalPixels = (long) img.getIntrinsicWidth() * img.getIntrinsicHeight();
+            //long totalPixels = (long) img.getMinimumWidth() * img.getMinimumHeight();
+            long totalPixels = (long)bit.getWidth() * bit.getHeight();
 
             //The program currently adds the RGB Value straight into the variables when counting.
             //Ex a pixel with RGB (255,20,50) would increment the red count by 255, blue by 20, and green by 50
@@ -52,9 +53,9 @@ public class ColorChooser {
 
 
             //Nested for loops that will go through each individual pixel in an image
-            for(int x=0; x < bit.getWidth(); x++)
+            for(int x = 1; x < bit.getWidth(); x++)
             {
-                for(int y = 0; y < bit.getHeight(); y++)
+                for(int y = 1; y < bit.getHeight(); y++)
                 {
 
                     //Using a color object to get the RGB value from the current pixel in the loop
@@ -62,31 +63,32 @@ public class ColorChooser {
 
 
 
-                    //This is the routine to test each pixel for a color
-                    redPixelValue = Color.red(color);
-                    bluePixelValue = Color.blue(color);
-                    greenPixelValue = Color.green(color);
+                    //Currently the RGB value for each color gets incremented every count.
+                    //EX: RGB = 255, 50, 20 => redPixels += 255, greenPixels += 50, bluePixels += 20
+                    redPixels += Color.red(color);
+                    greenPixels += Color.green(color);
+                    bluePixels += Color.blue(color);
 
 
                     //Right now if a pixel is NOT red,blue or green, each pixel count gets incremented
-                    if(redPixelValue > bluePixelValue && redPixelValue > greenPixelValue)
-                    {
-                        redPixels ++;
-                    }
-                    else if(bluePixelValue > redPixelValue && bluePixelValue > greenPixelValue)
-                    {
-                        bluePixels ++;
-                    }
-                    else if(greenPixelValue > redPixelValue && greenPixelValue > bluePixelValue)
-                    {
-                        greenPixels ++;
-                    }
-                    else
-                    {
-                        redPixels ++;
-                        bluePixels ++;
-                        greenPixels ++;
-                    }
+//                    if(redPixelValue > bluePixelValue && redPixelValue > greenPixelValue)
+//                    {
+//                        redPixels ++;
+//                    }
+//                    else if(bluePixelValue > redPixelValue && bluePixelValue > greenPixelValue)
+//                    {
+//                        bluePixels ++;
+//                    }
+//                    else if(greenPixelValue > redPixelValue && greenPixelValue > bluePixelValue)
+//                    {
+//                        greenPixels ++;
+//                    }
+//                    else
+//                    {
+//                        redPixels ++;
+//                        bluePixels ++;
+//                        greenPixels ++;
+//                    }
 
                 }
             }
@@ -95,18 +97,20 @@ public class ColorChooser {
             //Once all the pixels have been analyzed and added, compare them to determine which is the greatest value
             if(redPixels > bluePixels && redPixels > greenPixels)
             {
-                return 1;
+                return 1; //picture is 'red'
             }
             else if(greenPixels > redPixels && greenPixels > bluePixels)
             {
-                return 2;
+                return 2; //picture is 'green'
             }
             else if(bluePixels > redPixels && bluePixels > greenPixels)
             {
-                return 3;
+                return 3; // picture is 'blue'
             }
             else
             {
+                //if none of those statements were true, means we have a tie.
+                //in that case, picks a random number between 1 and 3
                 Random random = new Random();
                 return (random.nextInt(3)) + 1;
             }
@@ -121,11 +125,4 @@ public class ColorChooser {
         }
     }
 
-    private Bitmap downScaleBitmap(ImageView image, Context context)
-    {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = false;
-        options.inSampleSize = 4;
-        return BitmapFactory.decodeResource(context.getResources(), image.getId(), options);
-    }
 }
