@@ -65,31 +65,33 @@ public class ColorChooser {
 
                     //Currently the RGB value for each color gets incremented every count.
                     //EX: RGB = 255, 50, 20 => redPixels += 255, greenPixels += 50, bluePixels += 20
-                    redPixels += Color.red(color);
-                    greenPixels += Color.green(color);
-                    bluePixels += Color.blue(color);
+//                    redPixels += Color.red(color);
+//                    greenPixels += Color.green(color);
+//                    bluePixels += Color.blue(color);
+
+                    redPixelValue += Color.red(color);
+                    greenPixelValue += Color.green(color);
+                    bluePixelValue += Color.blue(color);
 
 
                     //Right now if a pixel is NOT red,blue or green, each pixel count gets incremented
-//                    if(redPixelValue > bluePixelValue && redPixelValue > greenPixelValue)
-//                    {
-//                        redPixels ++;
-//                    }
-//                    else if(bluePixelValue > redPixelValue && bluePixelValue > greenPixelValue)
-//                    {
-//                        bluePixels ++;
-//                    }
-//                    else if(greenPixelValue > redPixelValue && greenPixelValue > bluePixelValue)
-//                    {
-//                        greenPixels ++;
-//                    }
-//                    else
-//                    {
-//                        redPixels ++;
-//                        bluePixels ++;
-//                        greenPixels ++;
-//                    }
-
+                    if(redPixelValue > bluePixelValue && redPixelValue > greenPixelValue)
+                    {
+                        redPixels ++;
+                    }
+                    else if(bluePixelValue > redPixelValue && bluePixelValue > greenPixelValue)
+                    {
+                        bluePixels ++;
+                    }
+                    else if(greenPixelValue > redPixelValue && greenPixelValue > bluePixelValue)
+                    {
+                        greenPixels ++;
+                    }
+                    else {
+                        redPixels++;
+                        bluePixels++;
+                        greenPixels++;
+                    }
                 }
             }
 
