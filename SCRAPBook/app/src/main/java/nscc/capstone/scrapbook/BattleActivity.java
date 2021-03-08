@@ -21,6 +21,9 @@ public class BattleActivity extends AppCompatActivity {
     Random random = new Random();
     ArrayList<String> aiImages = new ArrayList<>();
 
+    //Creating a new ScoreKeeper instance to keep score.
+    ScoreKeeper score = new ScoreKeeper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +81,16 @@ public class BattleActivity extends AppCompatActivity {
         //Returns a 0 if the CPU wins, 1 if the player wins, 2 if it's a tie, and a -1 if there was an error
         int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
 
+
         if(versusResult == 0) // CPU won
         {
             btnTempGoToScore.setText("CPU Wins");
+            score.setComputerScore(score.getComputerScore()+1);
         }
         else if(versusResult == 1) //Player won
         {
             btnTempGoToScore.setText("Player wins");
+            score.setPlayerScore(score.getPlayerScore()+1);
         }
         else if(versusResult == 2) //Tie game
         {
