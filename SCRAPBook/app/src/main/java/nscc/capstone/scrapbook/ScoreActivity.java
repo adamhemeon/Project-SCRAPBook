@@ -12,6 +12,7 @@ public class ScoreActivity extends AppCompatActivity {
     TextView textViewScore, textViewWinner;
     Button btnPlayAgain;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +22,16 @@ public class ScoreActivity extends AppCompatActivity {
         textViewScore = findViewById(R.id.textViewScore);
         textViewWinner = findViewById(R.id.textViewWinner);
         btnPlayAgain = findViewById(R.id.btnPlayAgain);
+
+
+        //Getting the intent from the last Activity
+        Intent intent = getIntent();
+
+        int playerScore = intent.getIntExtra("playerScore",0);
+        int computerScore = intent.getIntExtra("computerScore",0);
+
+
+
 
         // Listeners
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
