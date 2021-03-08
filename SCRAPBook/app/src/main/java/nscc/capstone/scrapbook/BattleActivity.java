@@ -129,6 +129,8 @@ public class BattleActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(BattleActivity.this, ScoreActivity.class); // Goto Score Activity
+                i.putExtra("playerScore", score.getPlayerScore() );
+                i.putExtra("computerScore", score.getComputerScore() );
                 startActivityForResult(i, 1);
             }
         });
