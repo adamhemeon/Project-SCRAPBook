@@ -54,8 +54,8 @@ public class PhotoActivity extends AppCompatActivity {
         btnGallery = findViewById(R.id.btnGallery);
         btnStart = findViewById(R.id.btnStart);
 
-        //btnStart.setEnabled(false);
-        btnStart.setEnabled(true);
+        btnStart.setEnabled(false);
+        //btnStart.setEnabled(true);
 
         imageViewPhoto1 = findViewById(R.id.imageViewPhoto1);
         imageViewPhoto2 = findViewById(R.id.imageViewPhoto2);
