@@ -3,6 +3,7 @@ package nscc.capstone.scrapbook;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -74,6 +75,13 @@ public class BattleActivity extends AppCompatActivity {
         imageViewComputerPhoto.setMaxWidth(400);
         imageViewComputerPhoto.setMaxHeight(400);
         imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
+
+        // Player image
+        if(getIntent().hasExtra("Image")){
+            // Get the byte array and convert it back into a bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("Image"),0,getIntent().getByteArrayExtra("Image").length);
+            imageViewPlayerPhoto.setImageBitmap(bitmap);
+        }
 
 
     }//end onCreate
