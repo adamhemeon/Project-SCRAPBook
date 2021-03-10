@@ -245,6 +245,9 @@ public class PhotoActivity extends AppCompatActivity {
                                 imageViewPhoto1.getHeight(), true);
 
                         bitmapList.add(bitmap);
+//                        if(bitmapList.size() == 9) {
+//                            break;
+//                        }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
