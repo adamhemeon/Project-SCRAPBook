@@ -33,6 +33,10 @@ public class PhotoActivity extends AppCompatActivity {
     ClipData cd;
     ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     int photoCount;
+
+    int CAMERA_CODE = 3;
+    int GALLERY_CODE = 2;
+
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
 
@@ -203,7 +207,8 @@ public class PhotoActivity extends AppCompatActivity {
                 i.setAction(Intent.ACTION_GET_CONTENT);
 
                 try {
-                    startActivityForResult(Intent.createChooser(i,"Select Image"), 2);
+                    startActivityForResult(Intent.createChooser(i,"Select Image"),
+                            GALLERY_CODE);
                 } catch (ActivityNotFoundException e) {
 
                 }
@@ -214,12 +219,12 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermission(Manifest.permission.CAMERA,
-                        CAMERA_PERMISSION_CODE);
+                        CAMERA_CODE);
 
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // TODO: Camera functionality
                 try {
-                    startActivityForResult(i, 3);
+                    startActivityForResult(i, CAMERA_CODE);
                 } catch (ActivityNotFoundException e) {
 
                 }
@@ -236,7 +241,7 @@ public class PhotoActivity extends AppCompatActivity {
         Bitmap bitmap;
         photoCount = bitmapList.size();
 
-        if(requestCode == 2) {
+        if(requestCode == GALLERY_CODE) {
             //bitmapList.clear();
             cd = ClipData.newPlainText("", "");
             cd = intent.getClipData();
@@ -263,7 +268,7 @@ public class PhotoActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (requestCode == 3) {
+        } else if (requestCode == CAMERA_CODE) {
             Bundle extras = intent.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             bitmap = Bitmap.createScaledBitmap(imageBitmap,
