@@ -103,27 +103,6 @@ public class BattleActivity extends AppCompatActivity {
         }
 
 
-        //Added the photos by code, was having issues doing it by GUI
-//        imageViewPlayerPhoto.setImageResource(R.drawable.img_42);
-//        imageViewPlayerPhoto.setAdjustViewBounds(true);
-//        imageViewPlayerPhoto.setMaxWidth(400);
-//        imageViewPlayerPhoto.setMaxHeight(400);
-//        imageViewComputerPhoto.setImageResource(R.drawable.img_17);
-//        imageViewComputerPhoto.setAdjustViewBounds(true);
-//        imageViewComputerPhoto.setMaxHeight(400);
-//        imageViewComputerPhoto.setMaxWidth(400);
-
-
-
-//        ColorChooser colorChooser = new ColorChooser();
-//        int playerColorResult = colorChooser.DetermineColor(imageViewPlayerPhoto,,this);
-//        int computerColorResult = colorChooser.DetermineColor(imageViewComputerPhoto,R.id.imageViewComputerPhoto,this);
-//
-//        RockPaperScissors rockPaperScissors = new RockPaperScissors();
-//        int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
-
-
-
         // Listeners
         btnTempGoToScore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,16 +115,6 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
 
-        // Randomly get 10 photo names
-//        for (int i = 0; i < 10; i++){
-//            aiImages.add("img_" + random.nextInt(49));
-//        }
-//
-//        // Set the AI image from the aiImages string titles
-//        imageViewComputerPhoto.setAdjustViewBounds(true);
-//        imageViewComputerPhoto.setMaxWidth(400);
-//        imageViewComputerPhoto.setMaxHeight(400);
-//        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
 
         // Player image
         imageViewPlayerPhoto.setImageBitmap(getBundleImage("Image"));
