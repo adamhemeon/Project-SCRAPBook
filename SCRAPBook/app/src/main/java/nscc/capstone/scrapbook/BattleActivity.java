@@ -153,6 +153,7 @@ public class BattleActivity extends AppCompatActivity {
 
     }//end onCreate
 
+
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
     protected void onStart(){
