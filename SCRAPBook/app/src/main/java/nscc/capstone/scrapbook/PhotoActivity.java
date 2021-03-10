@@ -1,6 +1,8 @@
 package nscc.capstone.scrapbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -14,6 +16,10 @@ import android.content.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -27,6 +33,8 @@ public class PhotoActivity extends AppCompatActivity {
     ClipData cd;
     ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     int photoCount;
+    int CAMERA_PERMISSION_CODE = 100;
+    int STORAGE_PERMISSION_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +213,8 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkPermission(Manifest.permission.CAMERA,
+                        CAMERA_PERMISSION_CODE);
 
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // TODO: Camera functionality
@@ -255,8 +265,11 @@ public class PhotoActivity extends AppCompatActivity {
             }
         } else if (requestCode == 3) {
             Bundle extras = intent.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("bitmapList");
-            bitmapList.add(imageBitmap);
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            bitmap = Bitmap.createScaledBitmap(imageBitmap,
+                    imageViewPhoto1.getWidth(),
+                    imageViewPhoto1.getHeight(), true);
+            bitmapList.add(bitmap);
 
         }
 
@@ -337,6 +350,57 @@ public class PhotoActivity extends AppCompatActivity {
         }
         textViewNumPhotos.setText(photoCount + "/9");
     }
+
+    public void checkPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(PhotoActivity.this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(PhotoActivity.this,
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+            Toast.makeText(PhotoActivity.this, "Permission granted",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(PhotoActivity.this,  "Camera Permission Granted",
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                Toast.makeText(PhotoActivity.this, "Camera Permission Denied",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(PhotoActivity.this, "Storage Permission Granted",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(PhotoActivity.this, "Storage Permission Denied",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
