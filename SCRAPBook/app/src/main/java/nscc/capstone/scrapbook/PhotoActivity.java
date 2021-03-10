@@ -407,6 +407,12 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
+    public void sendBitmap(Bitmap sendBitmap, String sendName, Intent i){
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        sendBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
+        i.putExtra(sendName, byteStream.toByteArray());
+    }
+
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
@@ -480,11 +486,5 @@ public class PhotoActivity extends AppCompatActivity {
         // Toast.makeText(TitleActivity.this,"On Destroy",Toast.LENGTH_SHORT).show();
 
     }//end onDestroy
-
-    public void sendBitmap(Bitmap sendBitmap, String sendName, Intent i){
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        sendBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
-        i.putExtra(sendName, byteStream.toByteArray());
-    }
 
 }
