@@ -41,7 +41,7 @@ public class BattleActivity extends AppCompatActivity {
 
          //Randomly get 10 photo names
         for (int i = 0; i < 10; i++){
-            aiImages.add("img_" + random.nextInt(49));
+            aiImages.add("img_" + random.nextInt(48));
         }
 
         // *For Testing Purposes* Set a random photo for the users picture selection
@@ -148,11 +148,7 @@ public class BattleActivity extends AppCompatActivity {
 //        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
 
         // Player image
-        if(getIntent().hasExtra("Image")){
-            // Get the byte array and convert it back into a bitmap
-            Bitmap bitmap = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("Image"),0,getIntent().getByteArrayExtra("Image").length);
-            imageViewPlayerPhoto.setImageBitmap(bitmap);
-        }
+        imageViewPlayerPhoto.setImageBitmap(getBundleImage("Image"));
 
 
     }//end onCreate
@@ -230,5 +226,8 @@ public class BattleActivity extends AppCompatActivity {
 
     }//end onDestroy
 
+    public Bitmap getBundleImage(String bundleName){
+        return BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra(bundleName),0,getIntent().getByteArrayExtra(bundleName).length);
+    }
 
 }

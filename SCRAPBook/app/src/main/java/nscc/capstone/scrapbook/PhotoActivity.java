@@ -54,8 +54,8 @@ public class PhotoActivity extends AppCompatActivity {
         btnGallery = findViewById(R.id.btnGallery);
         btnStart = findViewById(R.id.btnStart);
 
-        //btnStart.setEnabled(false);
-        btnStart.setEnabled(true);
+        btnStart.setEnabled(false);
+        //btnStart.setEnabled(true);
 
         imageViewPhoto1 = findViewById(R.id.imageViewPhoto1);
         imageViewPhoto2 = findViewById(R.id.imageViewPhoto2);
@@ -192,10 +192,7 @@ public class PhotoActivity extends AppCompatActivity {
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
 
                 // Get first image and compress into a byte array to be passed on.
-                Bitmap firstImage = bitmapList.get(0);
-                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-                firstImage.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
-                i.putExtra("Image", byteStream.toByteArray());
+                sendBitmap(bitmapList.get(0), "Image", i);
                 startActivity(i);
             }
         });
@@ -484,6 +481,10 @@ public class PhotoActivity extends AppCompatActivity {
 
     }//end onDestroy
 
-
+    public void sendBitmap(Bitmap sendBitmap, String sendName, Intent i){
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        sendBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
+        i.putExtra(sendName, byteStream.toByteArray());
+    }
 
 }
