@@ -12,6 +12,7 @@ public class ScoreActivity extends AppCompatActivity {
     TextView textViewScore, textViewWinner;
     Button btnPlayAgain;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +22,40 @@ public class ScoreActivity extends AppCompatActivity {
         textViewScore = findViewById(R.id.textViewScore);
         textViewWinner = findViewById(R.id.textViewWinner);
         btnPlayAgain = findViewById(R.id.btnPlayAgain);
+
+
+        //Getting the intent from the last Activity
+        Intent intent = getIntent();
+
+        //getting the scores from the intent
+        int playerScore = intent.getIntExtra("playerScore",0);
+        int computerScore = intent.getIntExtra("computerScore",0);
+
+
+        if(playerScore == 0 && computerScore == 0)
+        {
+            textViewWinner.setText("Both scores are 0 - either tie or error :/");
+        }
+        else if(playerScore > computerScore)
+        {
+            textViewWinner.setText("Player wins!");
+            textViewScore.setText(playerScore + " - " + computerScore);
+        }
+        else if(computerScore > playerScore)
+        {
+            textViewWinner.setText("Computer Wins :( ");
+            textViewScore.setText(computerScore + " - " + playerScore);
+        }
+        else if(computerScore == playerScore)
+        {
+            textViewWinner.setText("Tie Game :o");
+            textViewScore.setText(playerScore + " - " + computerScore);
+        }
+
+
+
+
+
 
         // Listeners
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
