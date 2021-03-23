@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".BattleActivity">
 
     <LinearLayout
@@ -16,14 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/textViewPlayerWins"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/imageViewPlayerPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:contentDescription="@string/imageViewPlayerPhoto" />
+            android:contentDescription="@string/imageViewPlayerPhoto"
+            android:src="@drawable/ic_launcher_background" />
 
         <Space
             android:layout_width="match_parent"
@@ -34,7 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/textViewBattleVS"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -44,21 +49,25 @@
             android:id="@+id/imageViewComputerPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:contentDescription="@string/imageViewComputerPhoto" />
+            android:contentDescription="@string/imageViewComputerPhoto"
+            android:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/textViewComputerWins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/textViewComputerWins"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnTempGoToScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Temp: Go To Score Screen" />
+            android:background="@color/black"
+            android:text="Temp: Go To Score Screen"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".TitleActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="2dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,29 +23,35 @@
         <ImageView
             android:id="@+id/imageViewTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             android:accessibilityHeading="true"
             android:accessibilityPaneTitle="@string/app_name"
-            app:srcCompat="@drawable/title"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/title_web" />
 
         <Button
             android:id="@+id/btnPlayVsAI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnPlayVsAI" />
+            android:background="@color/red"
+            android:text="@string/btnPlayVsAI"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnPlayOnline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/green"
             android:enabled="false"
-            android:text="@string/btnPlayOnline" />
+            android:text="@string/btnPlayOnline"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnSettings" />
+            android:background="@color/blue"
+            android:text="@string/btnSettings"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

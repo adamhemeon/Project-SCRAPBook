@@ -32,6 +32,7 @@ public class TitleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme); // sets the theme back to the app theme from the splashTheme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
