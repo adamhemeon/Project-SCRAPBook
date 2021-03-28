@@ -40,27 +40,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@color/red"
+            android:background="@drawable/my_button_red_background_selector"
             android:text="@string/btnCamera"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnGallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@color/green"
+            android:background="@drawable/my_button_blue_background_selector"
             android:text="@string/btnGallery"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@color/blue"
+            android:background="@drawable/my_button_green_background_selector"
             android:text="@string/btnStart"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
@@ -97,27 +100,39 @@
 
             <ImageView
                 android:id="@+id/imageViewPhoto1"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto2"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto3"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
         </TableRow>
 
         <TableRow
@@ -127,27 +142,39 @@
 
             <ImageView
                 android:id="@+id/imageViewPhoto4"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto5"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto6"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
         </TableRow>
 
         <TableRow
@@ -157,27 +184,39 @@
 
             <ImageView
                 android:id="@+id/imageViewPhoto7"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto8"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="16dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/imageViewPhoto9"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:minHeight="100dp"
+                android:maxHeight="100dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/imageViewPlayerPhoto"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/blank_image"/>
         </TableRow>
 
     </TableLayout>

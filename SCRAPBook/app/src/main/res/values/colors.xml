@@ -6,8 +6,11 @@
     <color name="colorAccent">#EBEBEB</color>
 
     <color name="red">#EA4335</color>
+    <color name="red_disabled">#F9CCC8</color>
     <color name="blue">#4285F4</color>
+    <color name="blue_disabled">#C5DAFC</color>
     <color name="green">#34A853</color>
+    <color name="green_disabled">#D1F0DA</color>
     <color name="purple">#995AA0</color>
     <color name="orange">#EA9500</color>
     <color name="yellow">#FFED2C</color>
