@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/title_web"
+        android:icon="@drawable/scrapbook"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/title_web"
+        android:roundIcon="@drawable/scrapbook"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
