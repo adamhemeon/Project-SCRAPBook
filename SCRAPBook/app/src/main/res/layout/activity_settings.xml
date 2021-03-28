@@ -27,7 +27,7 @@
             android:text="@string/btnSettings"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <ScrollView
             android:layout_width="match_parent"

@@ -17,7 +17,7 @@
         android:text="@string/textViewSelectionHeader"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/photoScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/photoTableView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewSelectionHeader">
@@ -77,114 +77,110 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
 
-    <ScrollView
-        android:id="@+id/photoScrollView"
+    <TableLayout
+        android:id="@+id/photoTableView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNumPhotos">
 
-        <TableLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+            <ImageView
+                android:id="@+id/imageViewPhoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
+        </TableRow>
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
-            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+            <ImageView
+                android:id="@+id/imageViewPhoto4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
+        </TableRow>
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
-            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+            <ImageView
+                android:id="@+id/imageViewPhoto7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:id="@+id/imageViewPhoto9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/imageViewPlayerPhoto"
+                android:src="@drawable/ic_launcher_background" />
+        </TableRow>
 
-                <ImageView
-                    android:id="@+id/imageViewPhoto9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imageViewPlayerPhoto"
-                    android:src="@drawable/ic_launcher_background" />
-            </TableRow>
+    </TableLayout>
 
-        </TableLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
