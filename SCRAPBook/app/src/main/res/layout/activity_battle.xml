@@ -7,69 +7,93 @@
     android:background="@color/grey"
     tools:context=".BattleActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textViewPlayerWins"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:text="@string/textViewPlayerWins"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/imageViewPlayerPhoto"/>
 
-        <TextView
-            android:id="@+id/textViewPlayerWins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewPlayerWins"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+    <ImageView
+        android:id="@+id/imageViewPlayerPhoto"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:minWidth="100dp"
+        android:maxWidth="100dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@string/imageViewPlayerPhoto"
+        android:src="@drawable/blank_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPlayerWins"
+        app:layout_constraintBottom_toTopOf="@id/textViewBattleVS"/>
 
-        <ImageView
-            android:id="@+id/imageViewPlayerPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/imageViewPlayerPhoto"
-            android:src="@drawable/ic_launcher_background" />
+    <TextView
+        android:id="@+id/textViewBattleVS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textViewBattleVS"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewPlayerPhoto"
+        app:layout_constraintBottom_toTopOf="@id/imageViewComputerPhoto"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imageViewComputerPhoto"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:minWidth="100dp"
+        android:maxWidth="100dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@string/imageViewPlayerPhoto"
+        android:src="@drawable/blank_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewBattleVS"
+        app:layout_constraintBottom_toTopOf="@id/textViewComputerWins"/>
 
-        <TextView
-            android:id="@+id/textViewBattleVS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewBattleVS"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewComputerWins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textViewComputerWins"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewComputerPhoto"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
-            android:id="@+id/imageViewComputerPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/imageViewComputerPhoto"
-            android:src="@drawable/ic_launcher_background" />
+    <Button
+        android:id="@+id/btnTempGoToScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        android:text="Temp: Go To Score Screen"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/textViewComputerWins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewComputerWins"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/btnTempGoToScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:text="Temp: Go To Score Screen"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
