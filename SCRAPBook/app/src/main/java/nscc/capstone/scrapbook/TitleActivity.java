@@ -14,6 +14,11 @@ package nscc.capstone.scrapbook;
  *
  * */
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -29,6 +34,10 @@ public class TitleActivity extends AppCompatActivity {
     // Controls
     ImageView imageViewTitle;
     Button btnPlayVsAI, btnPlayOnline, btnSettings;
+    int CAMERA_CODE = 3;
+
+    int CAMERA_PERMISSION_CODE = 100;
+    int STORAGE_PERMISSION_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,9 @@ public class TitleActivity extends AppCompatActivity {
         btnPlayVsAI = findViewById(R.id.btnPlayVsAI);
         btnPlayOnline = findViewById(R.id.btnPlayOnline);
         btnSettings = findViewById(R.id.btnSettings);
+
+        checkPermission(Manifest.permission.CAMERA,
+                CAMERA_CODE);
 
         // Listeners
         btnPlayVsAI.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +73,56 @@ public class TitleActivity extends AppCompatActivity {
             }
         });
     }//end onCreate
+
+    public void checkPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+            Toast.makeText(this, "Permission granted",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this,  "Camera Permission Granted",
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                Toast.makeText(this, "Camera Permission Denied",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Storage Permission Granted",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(this, "Storage Permission Denied",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override

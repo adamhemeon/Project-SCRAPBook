@@ -203,9 +203,8 @@ public class PhotoActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
 
-                // TODO: Photo select limit; non-necessary, but more polished
+                i.setAction(Intent.ACTION_PICK);
                 i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                i.setAction(Intent.ACTION_GET_CONTENT);
 
                 try {
                     startActivityForResult(Intent.createChooser(i,"Select Image"),
@@ -219,8 +218,6 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.CAMERA,
-                        CAMERA_CODE);
 
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
@@ -241,7 +238,7 @@ public class PhotoActivity extends AppCompatActivity {
         Bitmap bitmap;
         photoCount = bitmapList.size();
 
-        if(requestCode == GALLERY_CODE) {
+        if(requestCode == GALLERY_CODE && result == RESULT_OK && intent != null) {
             //bitmapList.clear();
             cd = ClipData.newPlainText("", "");
             cd = intent.getClipData();
@@ -256,7 +253,8 @@ public class PhotoActivity extends AppCompatActivity {
                         Uri targetUri = item.getUri();
                         try {
                             bitmap = Bitmap.createScaledBitmap(BitmapFactory.
-                                            decodeStream(getContentResolver().openInputStream(targetUri)),
+                                            decodeStream(getContentResolver().
+                                                    openInputStream(targetUri)),
                                     imageViewPhoto1.getWidth(),
                                     imageViewPhoto1.getHeight(), true);
 
@@ -270,7 +268,7 @@ public class PhotoActivity extends AppCompatActivity {
             } else {
                 maxPhotoWarning();
             }
-        } else if (requestCode == CAMERA_CODE) {
+        } else if (requestCode == CAMERA_CODE && result == RESULT_OK && intent != null) {
             if(photoCount + 1 <= 9) {
                 Bundle extras = intent.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -366,22 +364,6 @@ public class PhotoActivity extends AppCompatActivity {
             btnStart.setEnabled(false);
         }
         textViewNumPhotos.setText(photoCount + "/9");
-    }
-
-    public void checkPermission(String permission, int requestCode)
-    {
-        if (ContextCompat.checkSelfPermission(PhotoActivity.this, permission)
-                == PackageManager.PERMISSION_DENIED) {
-
-            // Requesting the permission
-            ActivityCompat.requestPermissions(PhotoActivity.this,
-                    new String[] { permission },
-                    requestCode);
-        }
-        else {
-            Toast.makeText(PhotoActivity.this, "Permission granted",
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
