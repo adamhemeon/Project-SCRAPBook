@@ -19,7 +19,7 @@ public class ColorChooser {
 
     public ColorChooser(){}
 
-    public int DetermineColor(int imgId ,Context context)
+    public int DetermineColor(Bitmap bit ,Context context)
     {
         try
         {
@@ -29,7 +29,7 @@ public class ColorChooser {
             /////
             //Drawable img = image.getDrawable();
             //Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Bitmap bit = BitmapFactory.decodeResource(context.getResources(),imgId);
+            //Bitmap bit = BitmapFactory.decodeResource(context.getResources(),imgId);
             /////
 
 
