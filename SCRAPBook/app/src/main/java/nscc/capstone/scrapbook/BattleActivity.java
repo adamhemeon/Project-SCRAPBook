@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -40,67 +41,93 @@ public class BattleActivity extends AppCompatActivity {
         btnTempGoToScore = findViewById(R.id.btnTempGoToScore);
 
          //Randomly get 10 photo names
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 9; i++){
             aiImages.add("img_" + random.nextInt(48));
         }
 
         // *For Testing Purposes* Set a random photo for the users picture selection
-        imageViewPlayerPhoto.setAdjustViewBounds(true);
-        imageViewPlayerPhoto.setMaxWidth(400);
-        imageViewPlayerPhoto.setMaxHeight(400);
-        imageViewPlayerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName));
+//        imageViewPlayerPhoto.setAdjustViewBounds(true);
+//        imageViewPlayerPhoto.setMaxWidth(400);
+//        imageViewPlayerPhoto.setMaxHeight(400);
+//        imageViewPlayerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName));
 
         //this is a variable that gets passed into the ColorChooser.determineColor() function,
         //the variable is the ID of the drawable image
-        int playerImageResourceID = getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName);
+//        int playerImageResourceID = getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName);
 
 
-        // Set the AI image from the aiImages string titles
-        imageViewComputerPhoto.setAdjustViewBounds(true);
-        imageViewComputerPhoto.setMaxWidth(400);
-        imageViewComputerPhoto.setMaxHeight(400);
-        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
-
-        //this is a variable that gets passed into the ColorChooser.determineColor() function,
-        //the variable is the ID of the drawable image
-        int computerImageResourceID = getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName);
-
-
-        //Instantiating our ColorChooser class, and calling the DetermineColor() method on both the
-        //player and CPU photos.
-        ColorChooser colorChooser = new ColorChooser();
-
-        //DetermineColor() takes two parameters, the resource ID for the photo you want to test, and a context object
-        //DetermineColor() will return a 1 if the photo is 'red', 2 for 'green', 3 for 'blue'
-        int playerColorResult = colorChooser.DetermineColor(playerImageResourceID,this);
-        int computerColorResult = colorChooser.DetermineColor(computerImageResourceID,this);
-
-        //Instantiating our RockPaperScissors object.
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
-
-        //DetermineWinner() takes in two ints, the results of the player and computers color, and compares them.
-        //Returns a 0 if the CPU wins, 1 if the player wins, 2 if it's a tie, and a -1 if there was an error
-        int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
-
-
-        if(versusResult == 0) // CPU won
+        for(int x = 0; x < 9; x++)
         {
-            btnTempGoToScore.setText("CPU Wins");
-            score.setComputerScore(score.getComputerScore()+1);
+            ///TESTING
+            imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(x));
+
+            int computerImageResourceID = getResources().getIdentifier(aiImages.get(x), "drawable", getApplicationContext().getApplicationInfo().packageName);
+            imageViewComputerPhoto.setImageBitmap(getBitmapFromDrawable(computerImageResourceID));
+            ///END TESTING
+
+            // Set the AI image from the aiImages string titles
+            imageViewComputerPhoto.setAdjustViewBounds(true);
+            imageViewComputerPhoto.setMaxWidth(400);
+            imageViewComputerPhoto.setMaxHeight(400);
+    //        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
+
+            //this is a variable that gets passed into the ColorChooser.determineColor() function,
+            //the variable is the ID of the drawable image
+    //        int computerImageResourceID = getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName);
+
+
+            //Instantiating our ColorChooser class, and calling the DetermineColor() method on both the
+            //player and CPU photos.
+            ColorChooser colorChooser = new ColorChooser();
+
+            //DetermineColor() takes two parameters, the resource ID for the photo you want to test, and a context object
+            //DetermineColor() will return a 1 if the photo is 'red', 2 for 'green', 3 for 'blue'
+
+            ///TESTING
+            int playerColorResult = colorChooser.DetermineColor( ((BitmapDrawable)imageViewPlayerPhoto.getDrawable()).getBitmap(),this);
+            int computerColorResult = colorChooser.DetermineColor(((BitmapDrawable)imageViewComputerPhoto.getDrawable()).getBitmap(),this );
+            ///END TESTING
+
+    //        int playerColorResult = colorChooser.DetermineColor( (playerImageResourceID,this);
+    //        int computerColorResult = colorChooser.DetermineColor(computerImageResourceID,this);
+
+            //Instantiating our RockPaperScissors object.
+            RockPaperScissors rockPaperScissors = new RockPaperScissors();
+
+            //DetermineWinner() takes in two ints, the results of the player and computers color, and compares them.
+            //Returns a 0 if the CPU wins, 1 if the player wins, 2 if it's a tie, and a -1 if there was an error
+            int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
+
+
+            if(versusResult == 0) // CPU won
+            {
+                btnTempGoToScore.setText("CPU Wins");
+                score.setComputerScore(score.getComputerScore()+1);
+            }
+            else if(versusResult == 1) //Player won
+            {
+                score.setPlayerScore(score.getPlayerScore()+1);
+            }
+            else if(versusResult == 2) //Tie game
+            {
+
+            }
+            else
+            {
+
+            }
+
+            try
+            {
+                Thread.sleep(2000);
+            }
+            catch(InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
         }
-        else if(versusResult == 1) //Player won
-        {
-            btnTempGoToScore.setText("Player wins");
-            score.setPlayerScore(score.getPlayerScore()+1);
-        }
-        else if(versusResult == 2) //Tie game
-        {
-            btnTempGoToScore.setText("It was a tie!");
-        }
-        else
-        {
-            btnTempGoToScore.setText("Error :(");
-        }
+
 
 
         // Listeners
@@ -117,7 +144,7 @@ public class BattleActivity extends AppCompatActivity {
 
 
         // Player image
-        imageViewPlayerPhoto.setImageBitmap(getBundleImage("Image"));
+//        imageViewPlayerPhoto.setImageBitmap(getBundleImage("Image0"));
 
 
     }//end onCreate
@@ -198,6 +225,11 @@ public class BattleActivity extends AppCompatActivity {
 
     public Bitmap getBundleImage(String bundleName){
         return BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra(bundleName),0,getIntent().getByteArrayExtra(bundleName).length);
+    }
+
+    public Bitmap getBitmapFromDrawable(int imageId)
+    {
+        return BitmapFactory.decodeResource(this.getResources(),imageId);
     }
 
 }
