@@ -201,9 +201,8 @@ public class PhotoActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
 
-                // TODO: Photo select limit; non-necessary, but more polished
+                i.setAction(Intent.ACTION_PICK);
                 i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                i.setAction(Intent.ACTION_GET_CONTENT);
 
                 try {
                     startActivityForResult(Intent.createChooser(i,"Select Image"),
@@ -217,15 +216,17 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.CAMERA,
-                        CAMERA_CODE);
+                // Current state. Will prevent crash but will only ask once.
+                if (checkPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE)) {
+                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    try {
+                        startActivityForResult(i, CAMERA_CODE);
+                    } catch (ActivityNotFoundException e) {
 
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // TODO: Camera functionality
-                try {
-                    startActivityForResult(i, CAMERA_CODE);
-                } catch (ActivityNotFoundException e) {
-
+                    }
+                }else{
+                    requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                 }
             }
         });
@@ -240,41 +241,47 @@ public class PhotoActivity extends AppCompatActivity {
         Bitmap bitmap;
         photoCount = bitmapList.size();
 
-        if(requestCode == GALLERY_CODE) {
+        if(requestCode == GALLERY_CODE && result == RESULT_OK && intent != null) {
             //bitmapList.clear();
             cd = ClipData.newPlainText("", "");
             cd = intent.getClipData();
 
             int cdSize = cd.getItemCount();
 
-            for (int i = 0; i < cdSize; i++) {
-                if (result == Activity.RESULT_OK) {
-                    ClipData.Item item = cd.getItemAt(i);
-                    Uri targetUri = item.getUri();
-                    try {
-                        // TODO: get width from somewhere else
-                        bitmap = Bitmap.createScaledBitmap(BitmapFactory.
-                                        decodeStream(getContentResolver().openInputStream(targetUri)),
-                                imageViewPhoto1.getWidth(),
-                                imageViewPhoto1.getHeight(), true);
+            if (photoCount + cdSize <= 9) {
 
-                        bitmapList.add(bitmap);
-//                        if(bitmapList.size() == 9) {
-//                            break;
-//                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                for (int i = 0; i < cdSize; i++) {
+                    if (result == Activity.RESULT_OK) {
+                        ClipData.Item item = cd.getItemAt(i);
+                        Uri targetUri = item.getUri();
+                        try {
+                            bitmap = Bitmap.createScaledBitmap(BitmapFactory.
+                                            decodeStream(getContentResolver().
+                                                    openInputStream(targetUri)),
+                                    imageViewPhoto1.getWidth(),
+                                    imageViewPhoto1.getHeight(), true);
+
+                            bitmapList.add(bitmap);
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+            } else {
+                maxPhotoWarning();
             }
-        } else if (requestCode == CAMERA_CODE) {
-            Bundle extras = intent.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            bitmap = Bitmap.createScaledBitmap(imageBitmap,
-                    imageViewPhoto1.getWidth(),
-                    imageViewPhoto1.getHeight(), true);
-            bitmapList.add(bitmap);
-
+        } else if (requestCode == CAMERA_CODE && result == RESULT_OK && intent != null) {
+            if(photoCount + 1 <= 9) {
+                Bundle extras = intent.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                bitmap = Bitmap.createScaledBitmap(imageBitmap,
+                        imageViewPhoto1.getWidth(),
+                        imageViewPhoto1.getHeight(), true);
+                bitmapList.add(bitmap);
+            } else {
+                maxPhotoWarning();
+            }
         }
 
         photoCount = bitmapList.size();
@@ -287,16 +294,23 @@ public class PhotoActivity extends AppCompatActivity {
                 btnStart.setEnabled(true);
             }
             textViewNumPhotos.setText(photoCount + "/9");
-        }else{
-            btnStart.setEnabled(false);
-            Context context = getApplicationContext();
-            CharSequence text = "Too many images selected!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
         }
+
+    }
+
+    protected void maxPhotoWarning(){
+        photoCount = bitmapList.size();
+
+        if(photoCount != 9) {
+            btnStart.setEnabled(false);
+        }
+
+        Context context = getApplicationContext();
+        CharSequence text = "Too many images selected!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     protected void setImages(){
@@ -353,22 +367,6 @@ public class PhotoActivity extends AppCompatActivity {
             btnStart.setEnabled(false);
         }
         textViewNumPhotos.setText(photoCount + "/9");
-    }
-
-    public void checkPermission(String permission, int requestCode)
-    {
-        if (ContextCompat.checkSelfPermission(PhotoActivity.this, permission)
-                == PackageManager.PERMISSION_DENIED) {
-
-            // Requesting the permission
-            ActivityCompat.requestPermissions(PhotoActivity.this,
-                    new String[] { permission },
-                    requestCode);
-        }
-        else {
-            Toast.makeText(PhotoActivity.this, "Permission granted",
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
@@ -485,5 +483,15 @@ public class PhotoActivity extends AppCompatActivity {
         i.putExtra(sendName, byteStream.toByteArray());
     }
 
+    public boolean checkPermission(String permission, int requestCode)
+    {
+        return ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_DENIED;
+    }
+
+    public void requestPermission(String permission, int requestCode){
+        ActivityCompat.requestPermissions(this,
+                new String[] { permission },
+                requestCode);
     
+    }
 }
