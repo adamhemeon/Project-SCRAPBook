@@ -18,4 +18,5 @@
     <string name="btnStart">Start</string>
     <string name="startingScore">0 - 0</string>
     <string name="numPhotos">0/9</string>
+    <string name="btnAbout">About</string>
 </resources>

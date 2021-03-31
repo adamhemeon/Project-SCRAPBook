@@ -33,7 +33,7 @@ public class TitleActivity extends AppCompatActivity {
 
     // Controls
     ImageView imageViewTitle;
-    Button btnPlayVsAI, btnPlayOnline, btnSettings;
+    Button btnPlayVsAI, btnPlayOnline, btnAbout;
     int CAMERA_CODE = 3;
 
     int CAMERA_PERMISSION_CODE = 100;
@@ -51,7 +51,7 @@ public class TitleActivity extends AppCompatActivity {
 
         btnPlayVsAI = findViewById(R.id.btnPlayVsAI);
         btnPlayOnline = findViewById(R.id.btnPlayOnline);
-        btnSettings = findViewById(R.id.btnSettings);
+        btnAbout = findViewById(R.id.btnAbout);
 
         checkPermission(Manifest.permission.CAMERA,
                 CAMERA_CODE);
@@ -66,11 +66,11 @@ public class TitleActivity extends AppCompatActivity {
             }
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(TitleActivity.this, SettingsActivity.class); // Goto Settings Activity
+                Intent i = new Intent(TitleActivity.this, AboutActivity.class); // Goto About Activity
                 startActivityForResult(i,1);
             }
         });
@@ -86,10 +86,10 @@ public class TitleActivity extends AppCompatActivity {
                     new String[] { permission },
                     requestCode);
         }
-        else {
-            Toast.makeText(this, "Permission granted",
-                    Toast.LENGTH_SHORT).show();
-        }
+//        else {
+////            Toast.makeText(this, "Permission granted",
+////                    Toast.LENGTH_SHORT).show();
+//        }
     }
 
     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/

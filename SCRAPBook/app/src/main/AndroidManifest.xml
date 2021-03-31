@@ -34,6 +34,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".AboutActivity"
+            android:label="About">
+            <intent-filter>
+
+                <action android:name= "AboutActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+
         <activity android:name=".PhotoActivity"
             android:label="Photo">
             <intent-filter>
