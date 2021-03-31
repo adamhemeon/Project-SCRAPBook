@@ -19,19 +19,10 @@ public class ColorChooser {
 
     public ColorChooser(){}
 
-    public int DetermineColor(int imgId ,Context context)
+    public int DetermineColor(Bitmap bit)
     {
         try
         {
-
-            //Loading an image into memory
-
-            /////
-            //Drawable img = image.getDrawable();
-            //Bitmap bit = Bitmap.createBitmap(img.getIntrinsicWidth(), img.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Bitmap bit = BitmapFactory.decodeResource(context.getResources(),imgId);
-            /////
-
 
             //Getting the amount of total pixels in an image, which is used to determine the percentage of colour a photo is
             //long totalPixels = (long) img.getMinimumWidth() * img.getMinimumHeight();

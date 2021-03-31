@@ -33,7 +33,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     ClipData cd;
 
-    ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
+    static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     int photoCount;
 
     int CAMERA_CODE = 3;
@@ -191,8 +191,6 @@ public class PhotoActivity extends AppCompatActivity {
 
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
 
-                // Get first image and compress into a byte array to be passed on.
-                sendBitmap(bitmapList.get(0), "Image", i);
                 startActivity(i);
             }
         });
@@ -494,5 +492,6 @@ public class PhotoActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,
                 new String[] { permission },
                 requestCode);
+    
     }
 }
