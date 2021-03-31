@@ -8,10 +8,15 @@
     <string name="textViewBattleVS">VS</string>
     <string name="textViewComputerWins">Computer Wins!</string>
     <string name="textViewPlayerWins">Player Wins!</string>
+    <string name="textViewYouWin">You Win!</string>
+    <string name="textViewYouLose">You Lose.</string>
     <string name="imageViewPlayerPhoto">Player Photo</string>
     <string name="imageViewComputerPhoto">Computer Photo</string>
     <string name="textViewSelectionHeader">Select Photos</string>
     <string name="btnCamera">Camera</string>
     <string name="btnGallery">Photo Gallery</string>
     <string name="btnStart">Start</string>
+    <string name="startingScore">0 - 0</string>
+    <string name="numPhotos">0/9</string>
+    <string name="btnAbout">About</string>
 </resources>

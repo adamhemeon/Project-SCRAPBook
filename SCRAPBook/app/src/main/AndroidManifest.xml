@@ -2,25 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nscc.capstone.scrapbook">
 
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/scrapbook"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/scrapbook"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TitleActivity">
+
+        <activity android:name=".TitleActivity"
+            android:label="@string/app_name"
+            android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SettingsActivity"
             android:label="Settings">
             <intent-filter>
@@ -31,6 +33,18 @@
 
             </intent-filter>
         </activity>
+
+        <activity android:name=".AboutActivity"
+            android:label="About">
+            <intent-filter>
+
+                <action android:name= "AboutActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+
         <activity android:name=".PhotoActivity"
             android:label="Photo">
             <intent-filter>
@@ -41,6 +55,7 @@
 
             </intent-filter>
         </activity>
+
         <activity android:name=".BattleActivity"
             android:label="Battle">
             <intent-filter>
@@ -51,6 +66,7 @@
 
             </intent-filter>
         </activity>
+
         <activity android:name=".ScoreActivity"
             android:label="Score">
             <intent-filter>
@@ -61,6 +77,7 @@
 
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
