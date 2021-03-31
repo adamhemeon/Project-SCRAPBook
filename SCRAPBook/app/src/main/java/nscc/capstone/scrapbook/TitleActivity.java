@@ -198,6 +198,4 @@ public class TitleActivity extends AppCompatActivity {
         // Toast.makeText(TitleActivity.this,"On Destroy",Toast.LENGTH_SHORT).show();
 
     }//end onDestroy
-
-
 }

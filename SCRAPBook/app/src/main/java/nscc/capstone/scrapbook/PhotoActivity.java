@@ -218,12 +218,17 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Current state. Will prevent crash but will only ask once.
+                if (checkPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE)) {
+                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    try {
+                        startActivityForResult(i, CAMERA_CODE);
+                    } catch (ActivityNotFoundException e) {
 
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                try {
-                    startActivityForResult(i, CAMERA_CODE);
-                } catch (ActivityNotFoundException e) {
-
+                    }
+                }else{
+                    requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                 }
             }
         });
@@ -480,4 +485,14 @@ public class PhotoActivity extends AppCompatActivity {
         i.putExtra(sendName, byteStream.toByteArray());
     }
 
+    public boolean checkPermission(String permission, int requestCode)
+    {
+        return ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_DENIED;
+    }
+
+    public void requestPermission(String permission, int requestCode){
+        ActivityCompat.requestPermissions(this,
+                new String[] { permission },
+                requestCode);
+    }
 }
