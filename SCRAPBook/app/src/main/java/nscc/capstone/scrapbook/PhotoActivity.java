@@ -486,5 +486,5 @@ public class PhotoActivity extends AppCompatActivity {
         sendBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
         i.putExtra(sendName, byteStream.toByteArray());
     }
-    
+
 }
