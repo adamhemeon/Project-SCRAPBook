@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AboutActivity extends AppCompatActivity {
 
     // Controls
-    TextView textViewSettingsHeader;
+    TextView textViewAboutHeader, textViewAboutMessage;
     Button btnReturnToMenu;
 
     @Override
@@ -20,7 +20,8 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         // Controls
-        textViewSettingsHeader = findViewById(R.id.textViewSettingsHeader);
+        textViewAboutHeader = findViewById(R.id.textViewAboutHeader);
+        textViewAboutMessage = findViewById(R.id.textViewAboutMessage);
         btnReturnToMenu = findViewById(R.id.btnReturnToMenu);
 
         // Listeners

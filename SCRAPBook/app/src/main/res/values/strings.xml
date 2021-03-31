@@ -19,4 +19,6 @@
     <string name="startingScore">0 - 0</string>
     <string name="numPhotos">0/9</string>
     <string name="btnAbout">About</string>
+    <string name="tvAboutMessage">This is a test About message.</string>
+    <string name="tvAboutHeader">About</string>
 </resources>
