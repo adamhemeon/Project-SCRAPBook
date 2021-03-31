@@ -45,51 +45,35 @@ public class BattleActivity extends AppCompatActivity {
             aiImages.add("img_" + random.nextInt(48));
         }
 
-        // *For Testing Purposes* Set a random photo for the users picture selection
-//        imageViewPlayerPhoto.setAdjustViewBounds(true);
-//        imageViewPlayerPhoto.setMaxWidth(400);
-//        imageViewPlayerPhoto.setMaxHeight(400);
-//        imageViewPlayerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName));
-
-        //this is a variable that gets passed into the ColorChooser.determineColor() function,
-        //the variable is the ID of the drawable image
-//        int playerImageResourceID = getResources().getIdentifier(aiImages.get(3), "drawable", getApplicationContext().getApplicationInfo().packageName);
 
 
         for(int x = 0; x < 9; x++)
         {
-            ///TESTING
+            //Gets a bitmap from our PhotoActivity ArrayList and sets the player image view to be that bitmap
             imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(x));
 
+            //Gets the resource ID of the computers photo
             int computerImageResourceID = getResources().getIdentifier(aiImages.get(x), "drawable", getApplicationContext().getApplicationInfo().packageName);
+
+            //Sets the computers image view to be the bitmap of the chosen computer photo
             imageViewComputerPhoto.setImageBitmap(getBitmapFromDrawable(computerImageResourceID));
-            ///END TESTING
+
 
             // Set the AI image from the aiImages string titles
             imageViewComputerPhoto.setAdjustViewBounds(true);
             imageViewComputerPhoto.setMaxWidth(400);
             imageViewComputerPhoto.setMaxHeight(400);
-    //        imageViewComputerPhoto.setImageResource(getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName));
-
-            //this is a variable that gets passed into the ColorChooser.determineColor() function,
-            //the variable is the ID of the drawable image
-    //        int computerImageResourceID = getResources().getIdentifier(aiImages.get(0), "drawable", getApplicationContext().getApplicationInfo().packageName);
 
 
             //Instantiating our ColorChooser class, and calling the DetermineColor() method on both the
             //player and CPU photos.
             ColorChooser colorChooser = new ColorChooser();
 
-            //DetermineColor() takes two parameters, the resource ID for the photo you want to test, and a context object
+            //DetermineColor() takes one parameter, the bitmap for the photo you want to test,
             //DetermineColor() will return a 1 if the photo is 'red', 2 for 'green', 3 for 'blue'
+            int playerColorResult = colorChooser.DetermineColor( ((BitmapDrawable)imageViewPlayerPhoto.getDrawable()).getBitmap() );
+            int computerColorResult = colorChooser.DetermineColor(((BitmapDrawable)imageViewComputerPhoto.getDrawable()).getBitmap() );
 
-            ///TESTING
-            int playerColorResult = colorChooser.DetermineColor( ((BitmapDrawable)imageViewPlayerPhoto.getDrawable()).getBitmap(),this);
-            int computerColorResult = colorChooser.DetermineColor(((BitmapDrawable)imageViewComputerPhoto.getDrawable()).getBitmap(),this );
-            ///END TESTING
-
-    //        int playerColorResult = colorChooser.DetermineColor( (playerImageResourceID,this);
-    //        int computerColorResult = colorChooser.DetermineColor(computerImageResourceID,this);
 
             //Instantiating our RockPaperScissors object.
             RockPaperScissors rockPaperScissors = new RockPaperScissors();
@@ -108,23 +92,6 @@ public class BattleActivity extends AppCompatActivity {
             {
                 score.setPlayerScore(score.getPlayerScore()+1);
             }
-            else if(versusResult == 2) //Tie game
-            {
-
-            }
-            else
-            {
-
-            }
-
-            try
-            {
-                Thread.sleep(2000);
-            }
-            catch(InterruptedException e)
-            {
-                e.printStackTrace();
-            }
 
         }
 
@@ -142,9 +109,6 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
 
-
-        // Player image
-//        imageViewPlayerPhoto.setImageBitmap(getBundleImage("Image0"));
 
 
     }//end onCreate
