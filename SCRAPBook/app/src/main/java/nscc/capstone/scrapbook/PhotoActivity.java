@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 public class PhotoActivity extends AppCompatActivity {
 
-    // Controls
+    //Controls
     TextView textViewSelectionHeader, textViewNumPhotos;
     Button btnCamera, btnGallery, btnStart;
     ImageView imageViewPhoto1, imageViewPhoto2, imageViewPhoto3,
