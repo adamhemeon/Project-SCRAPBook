@@ -18,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         // Controls
-        textViewSettingsHeader = findViewById(R.id.textViewSettingsHeader);
+        textViewSettingsHeader = findViewById(R.id.textView);
         btnReturnToMenu = findViewById(R.id.btnReturnToMenu);
 
         // Listeners
