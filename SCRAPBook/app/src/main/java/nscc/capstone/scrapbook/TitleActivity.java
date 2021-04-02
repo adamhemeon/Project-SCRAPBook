@@ -21,6 +21,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.*;
 import android.view.*;
+import android.view.animation.*;
 import android.widget.*;
 import android.content.*;
 
@@ -39,6 +40,9 @@ public class TitleActivity extends AppCompatActivity {
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
 
+    //Animations
+    Animation scaleUp, scaleDown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // set the theme back to the app theme from the splashTheme
@@ -53,6 +57,10 @@ public class TitleActivity extends AppCompatActivity {
         btnPlayOnline = findViewById(R.id.btnPlayOnline);
         btnAbout = findViewById(R.id.btnAbout);
 
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
+
         checkPermission(Manifest.permission.CAMERA,
                 CAMERA_CODE);
 
@@ -61,6 +69,11 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Play Animation
+                btnPlayVsAI.startAnimation(scaleUp);
+                btnPlayVsAI.startAnimation(scaleDown);
+
+                // Go to Photo Activity
                 Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
                 startActivityForResult(i,1);
             }
@@ -70,6 +83,11 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Play Animation
+                btnAbout.startAnimation(scaleUp);
+                btnAbout.startAnimation(scaleDown);
+
+                // Go to About Activity
                 Intent i = new Intent(TitleActivity.this, AboutActivity.class); // Goto About Activity
                 startActivityForResult(i,1);
             }
@@ -86,10 +104,6 @@ public class TitleActivity extends AppCompatActivity {
                     new String[] { permission },
                     requestCode);
         }
-//        else {
-////            Toast.makeText(this, "Permission granted",
-////                    Toast.LENGTH_SHORT).show();
-//        }
     }
 
     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/

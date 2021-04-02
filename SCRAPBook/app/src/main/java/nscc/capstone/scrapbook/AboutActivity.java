@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ public class AboutActivity extends AppCompatActivity {
             textViewAboutFriendsHeader, textViewAboutFriendsMessage,
             textViewAboutWhoHeader, textViewAboutWhoMessage, textViewAboutWhoGroupMessage,
             textViewAboutCodeHeader, textViewAboutCodeMessage, textViewAboutCodeGitHubLink;
+
+    Animation scaleUp, scaleDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +54,20 @@ public class AboutActivity extends AppCompatActivity {
         // Set link
         textViewAboutCodeGitHubLink.setMovementMethod(LinkMovementMethod.getInstance());
 
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
+
         // Listeners
         btnReturnToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // Do Animations
+                btnReturnToMenu.startAnimation(scaleUp);
+                btnReturnToMenu.startAnimation(scaleDown);
+
+                // Go back to Title Activity
                 Intent i = new Intent(AboutActivity.this, TitleActivity.class); // Goto Title Activity
                 startActivityForResult(i,1);
             }

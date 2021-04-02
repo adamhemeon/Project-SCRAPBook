@@ -3,6 +3,8 @@ package nscc.capstone.scrapbook;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import android.content.*;
 
@@ -12,6 +14,8 @@ public class ScoreActivity extends AppCompatActivity {
     TextView textViewScore, textViewWinner;
     Button btnPlayAgain;
 
+    // Animations
+    Animation scaleUp, scaleDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class ScoreActivity extends AppCompatActivity {
         textViewWinner = findViewById(R.id.textViewWinner);
         btnPlayAgain = findViewById(R.id.btnPlayAgain);
 
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
         //Getting the intent from the last Activity
         Intent intent = getIntent();
@@ -30,7 +37,6 @@ public class ScoreActivity extends AppCompatActivity {
         //getting the scores from the intent
         int playerScore = intent.getIntExtra("playerScore",0);
         int computerScore = intent.getIntExtra("computerScore",0);
-
 
         if(playerScore == 0 && computerScore == 0)
         {
@@ -52,16 +58,16 @@ public class ScoreActivity extends AppCompatActivity {
             textViewScore.setText(playerScore + " - " + computerScore);
         }
 
-
-
-
-
-
         // Listeners
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // Do Animations
+                btnPlayAgain.startAnimation(scaleUp);
+                btnPlayAgain.startAnimation(scaleDown);
+
+                // Return to Title Activity
                 Intent i = new Intent(ScoreActivity.this, TitleActivity.class); // Goto Title Activity
                 startActivityForResult(i,1);
             }
