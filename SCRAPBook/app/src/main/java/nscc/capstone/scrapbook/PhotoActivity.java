@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
@@ -19,6 +20,8 @@ import android.content.*;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.widget.Button;
@@ -36,6 +39,8 @@ public class PhotoActivity extends AppCompatActivity {
     Animation scaleUp, scaleDown;
 
     ClipData cd;
+
+    MediaPlayer mediaPlayer;
 
     static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     int photoCount;
@@ -245,6 +250,13 @@ public class PhotoActivity extends AppCompatActivity {
                 // Do Animations
                 btnStart.startAnimation(scaleUp);
                 btnStart.startAnimation(scaleDown);
+
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.thunder_sheet);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 // Go to Battle Activity
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
