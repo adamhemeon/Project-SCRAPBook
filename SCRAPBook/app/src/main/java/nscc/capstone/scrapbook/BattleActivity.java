@@ -114,25 +114,33 @@ public class BattleActivity extends AppCompatActivity {
 
 
         }
+
+        //reset the player image view to the first photo they chose
         imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(0) );
 
+        //create an animation object from the animation resource folder
         final Animation playerAnimation = AnimationUtils.loadAnimation(this,R.anim.slide);
 
+        //explicitly invoke the animation one time
         imageViewPlayerPhoto.startAnimation(playerAnimation);
 
 
+        //here is where we have to use some sort of logic to make the animation run x times
         playerAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
+                //sets the imageview at the start of the animation
                 imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter) );
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
 
+                //checks to see if another animation should happen
                 if(loopCounter < 8)
                 {
+                    //sleeps the thread to allow a little pause in the UI
                     try
                     {
                         Thread.sleep(1000);
@@ -141,12 +149,17 @@ public class BattleActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    //increments the counter
                     loopCounter += 1;
+
+                    //invokes the animation again
                     imageViewPlayerPhoto.startAnimation(playerAnimation);
+
 
                 }
                 else
                 {
+                    //if our counter is too high, cancel the animation
                     playerAnimation.cancel();
                 }
             }
