@@ -1,16 +1,22 @@
 package nscc.capstone.scrapbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.animation.Animator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.*;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import android.content.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -25,6 +31,9 @@ public class BattleActivity extends AppCompatActivity {
 
     //Creating a new ScoreKeeper instance to keep score.
     ScoreKeeper score = new ScoreKeeper();
+
+    private int loopCounter = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +56,7 @@ public class BattleActivity extends AppCompatActivity {
 
 
 
-        for(int x = 0; x < 9; x++)
+        for(int x = 0; x < 2; x++)
         {
             //Gets a bitmap from our PhotoActivity ArrayList and sets the player image view to be that bitmap
             imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(x));
@@ -60,9 +69,13 @@ public class BattleActivity extends AppCompatActivity {
 
 
             // Set the AI image from the aiImages string titles
-            imageViewComputerPhoto.setAdjustViewBounds(true);
-            imageViewComputerPhoto.setMaxWidth(400);
-            imageViewComputerPhoto.setMaxHeight(400);
+//            imageViewComputerPhoto.setAdjustViewBounds(true);
+//            imageViewComputerPhoto.setMaxWidth(400);
+//            imageViewComputerPhoto.setMaxHeight(400);
+//
+//            imageViewPlayerPhoto.setAdjustViewBounds(true);
+//            imageViewPlayerPhoto.setMaxWidth(400);
+//            imageViewPlayerPhoto.setMaxHeight(400);
 
 
             //Instantiating our ColorChooser class, and calling the DetermineColor() method on both the
@@ -83,9 +96,10 @@ public class BattleActivity extends AppCompatActivity {
             int versusResult = rockPaperScissors.DetermineWinner(playerColorResult,computerColorResult);
 
 
+
+
             if(versusResult == 0) // CPU won
             {
-                btnTempGoToScore.setText("CPU Wins");
                 score.setComputerScore(score.getComputerScore()+1);
             }
             else if(versusResult == 1) //Player won
@@ -93,7 +107,55 @@ public class BattleActivity extends AppCompatActivity {
                 score.setPlayerScore(score.getPlayerScore()+1);
             }
 
+
+//            imageViewPlayerPhoto.startAnimation(AnimationUtils.loadAnimation(this,R.anim.slide));
+//
+//            imageViewComputerPhoto.startAnimation(AnimationUtils.loadAnimation(this,R.anim.slide));
+
+
         }
+        imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(0) );
+
+        final Animation playerAnimation = AnimationUtils.loadAnimation(this,R.anim.slide);
+
+        imageViewPlayerPhoto.startAnimation(playerAnimation);
+
+
+        playerAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+                imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter) );
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                if(loopCounter < 8)
+                {
+                    try
+                    {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    loopCounter += 1;
+                    imageViewPlayerPhoto.startAnimation(playerAnimation);
+
+                }
+                else
+                {
+                    playerAnimation.cancel();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
 
