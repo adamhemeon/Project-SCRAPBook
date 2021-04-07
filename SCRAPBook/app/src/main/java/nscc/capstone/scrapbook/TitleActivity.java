@@ -43,6 +43,8 @@ public class TitleActivity extends AppCompatActivity {
     //Animations
     Animation scaleUp, scaleDown;
 
+    boolean hasPermission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // set the theme back to the app theme from the splashTheme
@@ -68,14 +70,18 @@ public class TitleActivity extends AppCompatActivity {
         btnPlayVsAI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE);
 
                 // Play Animation
                 btnPlayVsAI.startAnimation(scaleUp);
                 btnPlayVsAI.startAnimation(scaleDown);
 
                 // Go to Photo Activity
-                Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
-                startActivityForResult(i,1);
+                if(hasPermission) {
+                    Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
+                    startActivityForResult(i, 1);
+                }
             }
         });
 
@@ -103,41 +109,20 @@ public class TitleActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[] { permission },
                     requestCode);
+
         }
     }
 
-    // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults)
+    public boolean checkPlayPermission(String permission, int requestCode)
     {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                Toast.makeText(this,  "Camera Permission Granted",
-                        Toast.LENGTH_SHORT).show();
-
-            } else {
-
-                Toast.makeText(this, "Camera Permission Denied",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Storage Permission Granted",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-
-                Toast.makeText(this, "Storage Permission Denied",
-                        Toast.LENGTH_SHORT).show();
-
-            }
+        if (ContextCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+            btnPlayVsAI.setEnabled(false);
+            Toast.makeText(this, "Please accept the required permissions.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
         }
+        return true;
     }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
