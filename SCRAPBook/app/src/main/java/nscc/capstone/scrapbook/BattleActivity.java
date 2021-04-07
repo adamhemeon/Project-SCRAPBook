@@ -45,8 +45,6 @@ public class BattleActivity extends AppCompatActivity {
             aiImages.add("img_" + random.nextInt(48));
         }
 
-
-
         for(int x = 0; x < 9; x++)
         {
             //Gets a bitmap from our PhotoActivity ArrayList and sets the player image view to be that bitmap

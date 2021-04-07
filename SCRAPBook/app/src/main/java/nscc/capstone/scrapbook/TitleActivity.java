@@ -70,18 +70,14 @@ public class TitleActivity extends AppCompatActivity {
         btnPlayVsAI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
-                        CAMERA_CODE);
 
                 // Play Animation
                 btnPlayVsAI.startAnimation(scaleUp);
                 btnPlayVsAI.startAnimation(scaleDown);
 
                 // Go to Photo Activity
-                if(hasPermission) {
-                    Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
-                    startActivityForResult(i, 1);
-                }
+                Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
+                startActivityForResult(i, 1);
             }
         });
 
@@ -113,17 +109,6 @@ public class TitleActivity extends AppCompatActivity {
         }
     }
 
-    public boolean checkPlayPermission(String permission, int requestCode)
-    {
-        if (ContextCompat.checkSelfPermission(this, permission)
-                == PackageManager.PERMISSION_DENIED) {
-            btnPlayVsAI.setEnabled(false);
-            Toast.makeText(this, "Please accept the required permissions.",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
