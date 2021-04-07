@@ -175,7 +175,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        //mediaPlayer.pause();
+        mediaPlayer.pause();
 
         // Put onPause code here
 
@@ -200,7 +200,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        //mediaPlayer.pause();
+        mediaPlayer.pause();
 
         // Put onStop code here
 
