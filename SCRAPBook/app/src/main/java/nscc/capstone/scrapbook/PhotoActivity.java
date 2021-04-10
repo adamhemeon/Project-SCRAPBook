@@ -242,12 +242,12 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Go to Battle Activity
+                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
+
                 // Do Animations
                 btnStart.startAnimation(scaleUp);
                 btnStart.startAnimation(scaleDown);
-
-                // Go to Battle Activity
-                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
 
                 startActivity(i);
             }
@@ -272,7 +272,7 @@ public class PhotoActivity extends AppCompatActivity {
                     startActivityForResult(Intent.createChooser(i,"Select Image"),
                             GALLERY_CODE);
                 } catch (ActivityNotFoundException e) {
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -292,7 +292,7 @@ public class PhotoActivity extends AppCompatActivity {
                     try {
                         startActivityForResult(i, CAMERA_CODE);
                     } catch (ActivityNotFoundException e) {
-
+                        e.printStackTrace();
                     }
                 }else{
                     requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
