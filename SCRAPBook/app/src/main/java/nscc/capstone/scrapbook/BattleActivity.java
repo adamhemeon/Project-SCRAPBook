@@ -1,3 +1,4 @@
+
 package nscc.capstone.scrapbook;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class BattleActivity extends AppCompatActivity {
 
     private int loopCounter = 0;
 
+    private boolean singular = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class BattleActivity extends AppCompatActivity {
         imageViewComputerPhoto = findViewById(R.id.imageViewComputerPhoto);
         btnTempGoToScore = findViewById(R.id.btnTempGoToScore);
 
-         //Randomly get 10 photo names
+        //Randomly get 10 photo names
         for (int i = 0; i < 9; i++){
             aiImages.add("img_" + random.nextInt(48));
         }
@@ -130,38 +132,48 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
 
-                //sets the imageview at the start of the animation
-                imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter) );
+
+
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                //checks to see if another animation should happen
-                if(loopCounter < 8)
-                {
-                    //sleeps the thread to allow a little pause in the UI
-                    try
-                    {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    //increments the counter
-                    loopCounter += 1;
-
-                    //invokes the animation again
+                if(singular) {
+                    imageViewPlayerPhoto.setVisibility(View.VISIBLE);
                     imageViewPlayerPhoto.startAnimation(playerAnimation);
+                    singular = false;
+                } else {
+                    //checks to see if another animation should happen
+                    if (loopCounter < 8) {
+                        //sleeps the thread to allow a little pause in the UI
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        //increments the counter
+                        loopCounter += 1;
+
+                        imageViewPlayerPhoto.setVisibility(View.INVISIBLE);
+
+                        //sets the imageview at the start of the animation
+                        imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter));
+
+                        singular = true;
+                        //invokes the animation again
+                        imageViewPlayerPhoto.startAnimation(playerAnimation);
 
 
+                    } else {
+                        //if our counter is too high, cancel the animation
+                        playerAnimation.cancel();
+                    }
                 }
-                else
-                {
-                    //if our counter is too high, cancel the animation
-                    playerAnimation.cancel();
-                }
+
+
+
             }
 
             @Override
@@ -187,7 +199,6 @@ public class BattleActivity extends AppCompatActivity {
 
 
     }//end onCreate
-
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
