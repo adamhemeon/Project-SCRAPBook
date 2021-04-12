@@ -242,6 +242,11 @@ public class BattleActivity extends AppCompatActivity {
                 i.putExtra("playerScore", score.getPlayerScore() );
                 i.putExtra("computerScore", score.getComputerScore() );
 
+                // Pause on moving to next screen to prevent sounds from continuing.
+                slideInSet.pause();
+                pauseSet.pause();
+                slideOutSet.pause();
+
                 // Play Animation
                 btnGoToScore.startAnimation(scaleUp);
                 btnGoToScore.startAnimation(scaleDown);
