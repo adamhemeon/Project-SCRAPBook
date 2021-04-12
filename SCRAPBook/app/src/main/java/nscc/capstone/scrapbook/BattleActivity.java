@@ -104,7 +104,16 @@ public class BattleActivity extends AppCompatActivity {
         playerFightAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                //sets the imageview at the start of the animation
+                imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter));
 
+                //Gets the resource ID of the computers photo
+                int computerImageResourceID = getResources().getIdentifier(aiImages.get(loopCounter),
+                        "drawable", getApplicationContext().getApplicationInfo().packageName);
+
+                //Set the image view at the start of the animation
+                //Sets the computers image view to be the bitmap of the chosen computer photo
+                imageViewComputerPhoto.setImageBitmap(getBitmapFromDrawable(computerImageResourceID));
             }
 
             @Override
@@ -144,17 +153,17 @@ public class BattleActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+                        // Clear animation to reduce flickering
+                        imageViewPlayerPhoto.clearAnimation();
+                        imageViewComputerPhoto.clearAnimation();
+
                         //increments the counter
                         loopCounter += 1;
-
-                        imageViewPlayerPhoto.setVisibility(View.INVISIBLE);
-
-                        //sets the imageview at the start of the animation
-                        imageViewPlayerPhoto.setImageBitmap(PhotoActivity.bitmapList.get(loopCounter));
 
                         singular = true;
                         //invokes the animation again
                         imageViewPlayerPhoto.startAnimation(playerFightAnimation);
+                        imageViewComputerPhoto.startAnimation(computerFightAnimation);
 
                     } else {
                         //if our counter is too high, cancel the animation
@@ -185,29 +194,8 @@ public class BattleActivity extends AppCompatActivity {
                 } else {
                     //checks to see if another animation should happen
                     if (loopCounter < (NUM_PHOTOS-1)) {
-                        //sleeps the thread to allow a little pause in the UI
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        //increments the counter
-                        loopCounter += 1;
-
-                        imageViewComputerPhoto.setVisibility(View.INVISIBLE);
-
-                        //Gets the resource ID of the computers photo
-                        int computerImageResourceID = getResources().getIdentifier(aiImages.get(loopCounter),
-                                "drawable", getApplicationContext().getApplicationInfo().packageName);
-
-                        //Set the image view at the start of the animation
-                        //Sets the computers image view to be the bitmap of the chosen computer photo
-                        imageViewComputerPhoto.setImageBitmap(getBitmapFromDrawable(computerImageResourceID));
 
                         singular = true;
-                        //invokes the animation again
-                        imageViewComputerPhoto.startAnimation(computerFightAnimation);
 
                     } else {
                         //if our counter is too high, cancel the animation
