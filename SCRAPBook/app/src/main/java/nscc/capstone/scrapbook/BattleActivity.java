@@ -276,7 +276,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-
+        mediaPlayer.pause();
         // Put onPause code here
 
         // Test
@@ -300,7 +300,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-
+        mediaPlayer.pause();
         // Put onStop code here
 
         // Test
@@ -312,7 +312,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-
+        mediaPlayer.release();
         // Put onDestroy code here
 
         // Test
