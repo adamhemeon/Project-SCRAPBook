@@ -46,6 +46,8 @@ public class PhotoActivity extends AppCompatActivity {
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
 
+    boolean hasPermission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,51 +259,81 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Do Animations
-                btnGallery.startAnimation(scaleUp);
-                btnGallery.startAnimation(scaleDown);
+                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE);
 
-                // Get Images
-                Intent i = new Intent(Intent.ACTION_PICK);
-                i.setType("image/*");
+                if(hasPermission) {
+                    // Do Animations
+                    btnGallery.startAnimation(scaleUp);
+                    btnGallery.startAnimation(scaleDown);
 
-                i.setAction(Intent.ACTION_PICK);
-                i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                    // Get Images
+                    Intent i = new Intent(Intent.ACTION_PICK);
+                    i.setType("image/*");
 
-                try {
-                    startActivityForResult(Intent.createChooser(i,"Select Image"),
-                            GALLERY_CODE);
-                } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
+                    i.setAction(Intent.ACTION_PICK);
+                    i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
+                    try {
+                        startActivityForResult(Intent.createChooser(i,"Select Image"),
+                                GALLERY_CODE);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
                 }
             }
         });
-
+          
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // Do Animations
-                btnCamera.startAnimation(scaleUp);
-                btnCamera.startAnimation(scaleDown);
+                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE);
 
-                // Current state. Will prevent crash but will only ask once.
-                if (checkPermission(Manifest.permission.CAMERA,
-                        CAMERA_CODE)) {
-                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    try {
-                        startActivityForResult(i, CAMERA_CODE);
-                    } catch (ActivityNotFoundException e) {
-                        e.printStackTrace();
+                if(hasPermission) {
+                    // Do Animations
+                    btnCamera.startAnimation(scaleUp);
+                    btnCamera.startAnimation(scaleDown);
+
+                    // Current state. Will prevent crash but will only ask once.
+                    if (checkPermission(Manifest.permission.CAMERA,
+                            CAMERA_CODE)) {
+                        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        try {
+                            startActivityForResult(i, CAMERA_CODE);
+                        } catch (ActivityNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                     }
-                }else{
-                    requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                 }
             }
         });
-
-
     }//end onCreate
+
+    public boolean checkPlayPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+            btnGallery.setEnabled(false);
+            btnGallery.setText("No Permissions!");
+
+            btnCamera.setEnabled(false);
+            btnCamera.setText("No Permissions!");
+
+            Toast.makeText(this, "Please accept the required permissions.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            btnGallery.setEnabled(true);
+            btnGallery.setText(R.string.btnGallery);
+
+            btnCamera.setEnabled(true);
+            btnCamera.setText(R.string.btnCamera);
+        }
+        return true;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int result, Intent intent) {
