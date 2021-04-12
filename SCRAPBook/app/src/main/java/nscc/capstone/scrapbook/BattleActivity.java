@@ -2,16 +2,12 @@
 package nscc.capstone.scrapbook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.*;
 import android.view.*;
 import android.view.animation.Animation;
@@ -20,7 +16,6 @@ import android.widget.*;
 import android.content.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -37,8 +32,10 @@ public class BattleActivity extends AppCompatActivity {
     Animation scaleUp, scaleDown, slideIn, slideIn2, slideOut, wave;
 
     // Animators and AnimatorSets
-    ObjectAnimator playerAnimator, computerAnimator;
-    AnimatorSet pictureSet = new AnimatorSet();
+    ObjectAnimator playerSlideIn, computerSlideIn, playerPause, computerPause, playerSlideOut, computerSlideOut;
+    AnimatorSet slideInSet = new AnimatorSet();
+    AnimatorSet pauseSet = new AnimatorSet();
+    AnimatorSet slideOutSet = new AnimatorSet();
 
     // AI Images
     Random random = new Random();
@@ -80,12 +77,28 @@ public class BattleActivity extends AppCompatActivity {
         imageViewComputerPhoto = findViewById(R.id.imageViewComputerPhoto);
         btnGoToScore = findViewById(R.id.btnGoToScore);
 
-        // Animators
-        playerAnimator = ObjectAnimator.ofFloat(imageViewPlayerPhoto, "translationX", -1000f, 0f);
-        computerAnimator = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", 1000f, 0f);
-        playerAnimator.setDuration(1500);
-        computerAnimator.setDuration(1500);
-        pictureSet.playTogether(playerAnimator, computerAnimator);
+        // -- Animators --
+        // Slide In
+        playerSlideIn = ObjectAnimator.ofFloat(imageViewPlayerPhoto, "translationX", -1500f, 0f);
+        computerSlideIn = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", 1500f, 0f);
+        playerSlideIn.setDuration(1500);
+        computerSlideIn.setDuration(1500);
+        slideInSet.playTogether(playerSlideIn, computerSlideIn);
+
+        // Pause
+        playerPause = ObjectAnimator.ofFloat(imageViewPlayerPhoto, "translationX", 0f, 0f);
+        computerPause = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", 0f, 0f);
+        playerPause.setDuration(1500);
+        computerPause.setDuration(1500);
+        pauseSet.playTogether(playerPause, computerPause);
+
+        // Slide Out
+        playerSlideOut = ObjectAnimator.ofFloat(imageViewPlayerPhoto, "translationX", 0f, 1500f);
+        computerSlideOut = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", 0f, -1500f);
+        playerSlideOut.setDuration(1500);
+        computerSlideOut.setDuration(1500);
+        slideOutSet.playTogether(playerSlideOut, computerSlideOut);
+
 
         // Hide the winning text views
         textViewPlayerWins.setVisibility(View.INVISIBLE);
@@ -109,7 +122,8 @@ public class BattleActivity extends AppCompatActivity {
         //Sets the computers image view to be the bitmap of the chosen computer photo
         imageViewComputerPhoto.setImageBitmap(getBitmapFromDrawable(computerImageResourceID));
 
-        pictureSet.addListener(new Animator.AnimatorListener() {
+        // Slide In set
+        slideInSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -151,8 +165,53 @@ public class BattleActivity extends AppCompatActivity {
                 //increments the counter and starts next animation
                 if (loopCounter < (NUM_PHOTOS-1)) {
                     loopCounter += 1;
-                    pictureSet.start();
+                    pauseSet.start();
                 }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // Unused
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // Unused
+            }
+        });
+
+        // Pause listener
+        pauseSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                // Unused
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                slideOutSet.start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // unsused
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // Unused
+            }
+        });
+
+        slideOutSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                // Unused
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                slideInSet.start();
             }
 
             @Override
@@ -191,7 +250,7 @@ public class BattleActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         // Start first animations
-        pictureSet.start();
+        slideInSet.start();
     }//end onStart
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
