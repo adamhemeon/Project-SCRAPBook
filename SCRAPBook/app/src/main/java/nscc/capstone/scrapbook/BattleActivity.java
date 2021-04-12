@@ -8,6 +8,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.*;
 import android.view.*;
 import android.view.animation.Animation;
@@ -29,7 +30,7 @@ public class BattleActivity extends AppCompatActivity {
     Button btnGoToScore;
 
     // Animations
-    Animation scaleUp, scaleDown, slideIn, slideIn2, slideOut, wave;
+    Animation scaleUp, scaleDown;
 
     // Animators and AnimatorSets
     ObjectAnimator playerSlideIn, computerSlideIn, playerPause, computerPause, playerSlideOut, computerSlideOut;
@@ -62,10 +63,6 @@ public class BattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
 
         // Create an animation object from the animation resource folder
-        slideIn = AnimationUtils.loadAnimation(this,R.anim.slide_in);
-        slideIn2 = AnimationUtils.loadAnimation(this,R.anim.slide_in);
-        slideOut = AnimationUtils.loadAnimation(this,R.anim.slide_out);
-        wave = AnimationUtils.loadAnimation(this,R.anim.wave);
         scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
         scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
@@ -101,7 +98,7 @@ public class BattleActivity extends AppCompatActivity {
 
 
         // Hide the winning text views
-        textViewPlayerWins.setVisibility(View.INVISIBLE);
+        textViewPlayerWins.setVisibility(View.VISIBLE);
         textViewComputerWins.setVisibility(View.INVISIBLE);
 
         // Get the computer images and add them to the array list
@@ -131,20 +128,19 @@ public class BattleActivity extends AppCompatActivity {
                 switch (winSequence[loopCounter])
                 {
                     case 0: // COMPUTER
-                        textViewPlayerWins.setVisibility(View.INVISIBLE);
-                        textViewComputerWins.setVisibility(View.VISIBLE);
+                        textViewPlayerWins.setText(R.string.conputerwins);
+                        textViewPlayerWins.setTextColor(Color.rgb(230, 24, 9));
                         break;
                     case 1: // PLAYER
-                        textViewPlayerWins.setVisibility(View.VISIBLE);
-                        textViewComputerWins.setVisibility(View.INVISIBLE);
+                        textViewPlayerWins.setText(R.string.playerwins);
+                        textViewPlayerWins.setTextColor(Color.rgb(9, 38, 230));
                         break;
                     case 2: // TIE
-                        textViewPlayerWins.setVisibility(View.VISIBLE);
-                        textViewComputerWins.setVisibility(View.VISIBLE);
+                        textViewPlayerWins.setText(R.string.tie);
+                        textViewPlayerWins.setTextColor(Color.rgb(230, 186, 9));
                         break;
                     default: // ERROR
-                        textViewPlayerWins.setVisibility(View.INVISIBLE);
-                        textViewComputerWins.setVisibility(View.INVISIBLE);
+                        textViewPlayerWins.setText(R.string.error);
                         break;
                 }
 
