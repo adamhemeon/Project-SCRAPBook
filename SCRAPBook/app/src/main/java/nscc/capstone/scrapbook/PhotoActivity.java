@@ -264,8 +264,6 @@ public class PhotoActivity extends AppCompatActivity {
                 }
 
                 // Go to Battle Activity
-                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
-
                 startActivity(i);
             }
         });
@@ -277,7 +275,7 @@ public class PhotoActivity extends AppCompatActivity {
                 hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
                         CAMERA_CODE);
 
-                if(hasPermission) {
+                if (hasPermission) {
                     // Do Animations
                     btnGallery.startAnimation(scaleUp);
                     btnGallery.startAnimation(scaleDown);
@@ -290,10 +288,11 @@ public class PhotoActivity extends AppCompatActivity {
                     i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
                     try {
-                        startActivityForResult(Intent.createChooser(i,"Select Image"),
+                        startActivityForResult(Intent.createChooser(i, "Select Image"),
                                 GALLERY_CODE);
                     } catch (ActivityNotFoundException e) {
                         e.printStackTrace();
+                    }
                 }
             }
         });
