@@ -19,11 +19,14 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.*;
+import android.provider.MediaStore;
 import android.view.*;
-import android.view.animation.*;
 import android.widget.*;
 import android.content.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main Activity provides the app starting page.
@@ -36,6 +39,7 @@ public class TitleActivity extends AppCompatActivity {
     ImageView imageViewTitle;
     Button btnPlayVsAI, btnPlayOnline, btnAbout;
     int CAMERA_CODE = 3;
+    MediaPlayer mediaPlayer;
 
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
@@ -59,25 +63,32 @@ public class TitleActivity extends AppCompatActivity {
         btnPlayOnline = findViewById(R.id.btnPlayOnline);
         btnAbout = findViewById(R.id.btnAbout);
 
-        // Animations
-        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
-        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
-
         checkPermission(Manifest.permission.CAMERA,
                 CAMERA_CODE);
+
+        // Music
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         // Listeners
         btnPlayVsAI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // Play Animation
-                btnPlayVsAI.startAnimation(scaleUp);
-                btnPlayVsAI.startAnimation(scaleDown);
-
-                // Go to Photo Activity
                 Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
-                startActivityForResult(i, 1);
+
+                // Stop song and play bell sleep to get the whole bell sounds
+                mediaPlayer.stop();
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.boxing_bell);
+                mediaPlayer.start();
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mediaPlayer.stop();
+                startActivityForResult(i,1);
             }
         });
 
@@ -85,11 +96,6 @@ public class TitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Play Animation
-                btnAbout.startAnimation(scaleUp);
-                btnAbout.startAnimation(scaleDown);
-
-                // Go to About Activity
                 Intent i = new Intent(TitleActivity.this, AboutActivity.class); // Goto About Activity
                 startActivityForResult(i,1);
             }
@@ -105,16 +111,29 @@ public class TitleActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[] { permission },
                     requestCode);
-
         }
     }
 
+//     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
+//     @Override
+//     public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                            int[] grantResults)
+//     {
+//         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+//         if (requestCode == CAMERA_PERMISSION_CODE) {
+//             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+//                 Toast.makeText(this,  "Camera Permission Granted",
+//                         Toast.LENGTH_SHORT).show();
+//         }
+//     }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
     protected void onStart(){
         super.onStart();
-
+        mediaPlayer.start();
         // Put onStart code here
 
         // Test
@@ -126,6 +145,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        mediaPlayer.start();
 
         // Put onResume code here
 
@@ -138,6 +158,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+        mediaPlayer.pause();
 
         // Put onPause code here
 
@@ -150,7 +171,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onRestart(){
         super.onRestart();
-
+        mediaPlayer.start();
         // Put onRestart code here
 
         // Test
@@ -162,6 +183,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
+        mediaPlayer.pause();
 
         // Put onStop code here
 
@@ -174,7 +196,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-
+        mediaPlayer.release();
         // Put onDestroy code here
 
         // Test
