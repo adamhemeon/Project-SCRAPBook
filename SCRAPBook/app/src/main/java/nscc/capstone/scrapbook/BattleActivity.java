@@ -82,7 +82,7 @@ public class BattleActivity extends AppCompatActivity {
 
         // Animators
         playerAnimator = ObjectAnimator.ofFloat(imageViewPlayerPhoto, "translationX", -1000f, 0f);
-        computerAnimator = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", -1000f, 0f);
+        computerAnimator = ObjectAnimator.ofFloat(imageViewComputerPhoto, "translationX", 1000f, 0f);
         playerAnimator.setDuration(1500);
         computerAnimator.setDuration(1500);
         pictureSet.playTogether(playerAnimator, computerAnimator);
