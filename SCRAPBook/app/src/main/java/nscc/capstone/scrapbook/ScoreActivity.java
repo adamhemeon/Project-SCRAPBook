@@ -38,24 +38,20 @@ public class ScoreActivity extends AppCompatActivity {
         int playerScore = intent.getIntExtra("playerScore",0);
         int computerScore = intent.getIntExtra("computerScore",0);
 
-        if(playerScore == 0 && computerScore == 0)
+        String finalScore = playerScore + " - " + computerScore;
+        textViewScore.setText(finalScore);
+
+        if(playerScore > computerScore)
         {
-            textViewWinner.setText("Both scores are 0 - either tie or error :/");
-        }
-        else if(playerScore > computerScore)
-        {
-            textViewWinner.setText("Player wins!");
-            textViewScore.setText(playerScore + " - " + computerScore);
+            textViewWinner.setText(R.string.textViewYouWin);
         }
         else if(computerScore > playerScore)
         {
-            textViewWinner.setText("Computer Wins :( ");
-            textViewScore.setText(computerScore + " - " + playerScore);
+            textViewWinner.setText(R.string.textViewYouLose);
         }
-        else if(computerScore == playerScore)
+        else
         {
-            textViewWinner.setText("Tie Game :o");
-            textViewScore.setText(playerScore + " - " + computerScore);
+            textViewWinner.setText(R.string.textViewYouTied);
         }
 
         // Listeners
@@ -146,6 +142,4 @@ public class ScoreActivity extends AppCompatActivity {
         // Toast.makeText(TitleActivity.this,"On Destroy",Toast.LENGTH_SHORT).show();
 
     }//end onDestroy
-
-
 }

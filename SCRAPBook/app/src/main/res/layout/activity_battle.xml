@@ -22,21 +22,21 @@
 
     <ImageView
         android:id="@+id/imageViewPlayerPhoto"
-        android:adjustViewBounds="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        android:minHeight="100dp"
-        android:maxHeight="100dp"
-        android:minWidth="100dp"
-        android:maxWidth="100dp"
         android:layout_margin="5dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/imageViewPlayerPhoto"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:scaleType="centerInside"
         android:src="@drawable/blank_image"
+        app:layout_constraintBottom_toTopOf="@id/textViewBattleVS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPlayerWins"
-        app:layout_constraintBottom_toTopOf="@id/textViewBattleVS"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewPlayerWins" />
 
     <TextView
         android:id="@+id/textViewBattleVS"
@@ -58,9 +58,9 @@
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
         android:minHeight="100dp"
-        android:maxHeight="100dp"
+        android:maxHeight="200dp"
         android:minWidth="100dp"
-        android:maxWidth="100dp"
+        android:maxWidth="200dp"
         android:layout_margin="5dp"
         android:contentDescription="@string/imageViewPlayerPhoto"
         android:src="@drawable/blank_image"
@@ -81,19 +81,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewComputerPhoto"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/btnGoToScore"/>
 
     <Button
-        android:id="@+id/btnTempGoToScore"
+        android:id="@+id/btnGoToScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/black"
-        android:text="Temp: Go To Score Screen"
+        android:text="@string/btnGoToScore"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,9 @@
     <string name="textViewComputerWins">Computer Wins!</string>
     <string name="textViewPlayerWins">Player Wins!</string>
     <string name="textViewYouWin">You Win!</string>
-    <string name="textViewYouLose">You Lose.</string>
+    <string name="textViewYouLose">You Lost…</string>
+    <string name="textViewYouTied">You Tied!</string>
+    <string name="textViewYouError">Did something error?</string>
     <string name="imageViewPlayerPhoto">Player Photo</string>
     <string name="imageViewComputerPhoto">Computer Photo</string>
     <string name="textViewSelectionHeader">Select Photos</string>
@@ -36,4 +38,9 @@
     <string name="tvAboutCodeHeader">Can I see the code?</string>
     <string name="tvAboutCodeMessage">Yes! You can see the code that makes up this game and the list of contributors by visiting the project GitHub."</string>
     <string name="tvAboutCodeGitHubLink"><a href="https://github.com/adamhemeon/Project-SCRAPBook">https://github.com/adamhemeon/Project-SCRAPBook</a></string>
+    <string name="btnGoToScore">Go To Score</string>
+    <string name="playerwins">Player Wins!!</string>
+    <string name="conputerwins">Computer Wins...</string>
+    <string name="tie">TIE!</string>
+    <string name="error">...</string>
 </resources>
