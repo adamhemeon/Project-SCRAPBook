@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 public class PhotoActivity extends AppCompatActivity {
 
-    // Controls
+    //Controls
     TextView textViewSelectionHeader, textViewNumPhotos;
     Button btnCamera, btnGallery, btnStart;
     ImageView imageViewPhoto1, imageViewPhoto2, imageViewPhoto3,
@@ -244,12 +244,12 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Go to Battle Activity
+                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
+
                 // Do Animations
                 btnStart.startAnimation(scaleUp);
                 btnStart.startAnimation(scaleDown);
-
-                // Go to Battle Activity
-                Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
 
                 startActivity(i);
             }
@@ -275,15 +275,14 @@ public class PhotoActivity extends AppCompatActivity {
                     i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
                     try {
-                        startActivityForResult(Intent.createChooser(i, "Select Image"),
+                        startActivityForResult(Intent.createChooser(i,"Select Image"),
                                 GALLERY_CODE);
                     } catch (ActivityNotFoundException e) {
-
-                    }
+                        e.printStackTrace();
                 }
             }
         });
-
+          
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,7 +302,7 @@ public class PhotoActivity extends AppCompatActivity {
                         try {
                             startActivityForResult(i, CAMERA_CODE);
                         } catch (ActivityNotFoundException e) {
-
+                            e.printStackTrace();
                         }
                     } else {
                         requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
@@ -311,9 +310,6 @@ public class PhotoActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }//end onCreate
 
     public boolean checkPlayPermission(String permission, int requestCode)
