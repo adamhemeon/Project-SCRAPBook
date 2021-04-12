@@ -31,7 +31,7 @@ public class BattleActivity extends AppCompatActivity {
     Button btnGoToScore;
 
     // Animations
-    Animation scaleUp, scaleDown, slideIn, slideOut, wave,
+    Animation scaleUp, scaleDown, slideIn, slideIn2, slideOut, wave,
             playerFightAnimation, computerFightAnimation;
 
     // AI Images
@@ -60,6 +60,7 @@ public class BattleActivity extends AppCompatActivity {
 
         // Create an animation object from the animation resource folder
         slideIn = AnimationUtils.loadAnimation(this,R.anim.slide_in);
+        slideIn2 = AnimationUtils.loadAnimation(this,R.anim.slide_in);
         slideOut = AnimationUtils.loadAnimation(this,R.anim.slide_out);
         wave = AnimationUtils.loadAnimation(this,R.anim.wave);
         scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
@@ -67,7 +68,7 @@ public class BattleActivity extends AppCompatActivity {
 
         // Set the animations we want to listen to
         playerFightAnimation = slideIn;
-        computerFightAnimation = slideIn;
+        computerFightAnimation = slideIn2;
 
         // Controls
         textViewPlayerWins = findViewById(R.id.textViewPlayerWins);
