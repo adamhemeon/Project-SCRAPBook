@@ -7,3 +7,6 @@ Project SCRAPBook is an Android game built with Android Studio that takes the ga
 
 
 Main Testing Pixel 2 AVD Android API 29
+
+Intro: https://youtu.be/qDa35J4LGsM
+Final Presentation: https://youtu.be/Em7TUoBHD-s
