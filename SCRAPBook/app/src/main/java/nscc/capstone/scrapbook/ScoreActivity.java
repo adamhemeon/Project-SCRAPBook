@@ -3,6 +3,8 @@ package nscc.capstone.scrapbook;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import android.content.*;
 
@@ -12,6 +14,8 @@ public class ScoreActivity extends AppCompatActivity {
     TextView textViewScore, textViewWinner;
     Button btnPlayAgain;
 
+    // Animations
+    Animation scaleUp, scaleDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class ScoreActivity extends AppCompatActivity {
         textViewWinner = findViewById(R.id.textViewWinner);
         btnPlayAgain = findViewById(R.id.btnPlayAgain);
 
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
         //Getting the intent from the last Activity
         Intent intent = getIntent();
@@ -31,37 +38,32 @@ public class ScoreActivity extends AppCompatActivity {
         int playerScore = intent.getIntExtra("playerScore",0);
         int computerScore = intent.getIntExtra("computerScore",0);
 
+        String finalScore = playerScore + " - " + computerScore;
+        textViewScore.setText(finalScore);
 
-        if(playerScore == 0 && computerScore == 0)
+        if(playerScore > computerScore)
         {
-            textViewWinner.setText("Both scores are 0 - either tie or error :/");
-        }
-        else if(playerScore > computerScore)
-        {
-            textViewWinner.setText("Player wins!");
-            textViewScore.setText(playerScore + " - " + computerScore);
+            textViewWinner.setText(R.string.textViewYouWin);
         }
         else if(computerScore > playerScore)
         {
-            textViewWinner.setText("Computer Wins :( ");
-            textViewScore.setText(computerScore + " - " + playerScore);
+            textViewWinner.setText(R.string.textViewYouLose);
         }
-        else if(computerScore == playerScore)
+        else
         {
-            textViewWinner.setText("Tie Game :o");
-            textViewScore.setText(playerScore + " - " + computerScore);
+            textViewWinner.setText(R.string.textViewYouTied);
         }
-
-
-
-
-
 
         // Listeners
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // Do Animations
+                btnPlayAgain.startAnimation(scaleUp);
+                btnPlayAgain.startAnimation(scaleDown);
+
+                // Return to Title Activity
                 Intent i = new Intent(ScoreActivity.this, TitleActivity.class); // Goto Title Activity
                 startActivityForResult(i,1);
             }
@@ -140,6 +142,4 @@ public class ScoreActivity extends AppCompatActivity {
         // Toast.makeText(TitleActivity.this,"On Destroy",Toast.LENGTH_SHORT).show();
 
     }//end onDestroy
-
-
 }

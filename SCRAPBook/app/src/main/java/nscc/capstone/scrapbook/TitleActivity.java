@@ -19,10 +19,15 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.*;
+import android.provider.MediaStore;
 import android.view.*;
+import android.view.animation.Animation;
 import android.widget.*;
 import android.content.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main Activity provides the app starting page.
@@ -35,9 +40,15 @@ public class TitleActivity extends AppCompatActivity {
     ImageView imageViewTitle;
     Button btnPlayVsAI, btnPlayOnline, btnAbout;
     int CAMERA_CODE = 3;
+    MediaPlayer mediaPlayer;
 
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
+
+    //Animations
+    Animation scaleUp, scaleDown;
+
+    boolean hasPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +67,28 @@ public class TitleActivity extends AppCompatActivity {
         checkPermission(Manifest.permission.CAMERA,
                 CAMERA_CODE);
 
+        // Music
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
         // Listeners
         btnPlayVsAI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent i = new Intent(TitleActivity.this, PhotoActivity.class); // Goto Photo Activity
+
+                // Stop song and play bell sleep to get the whole bell sounds
+                mediaPlayer.stop();
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.boxing_bell);
+                mediaPlayer.start();
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mediaPlayer.stop();
                 startActivityForResult(i,1);
             }
         });
@@ -86,51 +113,28 @@ public class TitleActivity extends AppCompatActivity {
                     new String[] { permission },
                     requestCode);
         }
-//        else {
-////            Toast.makeText(this, "Permission granted",
-////                    Toast.LENGTH_SHORT).show();
-//        }
     }
 
-    // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//     // Function referenced from: https://www.geeksforgeeks.org/android-how-to-request-permissions-in-android-application/
+//     @Override
+//     public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                            int[] grantResults)
+//     {
+//         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//         if (requestCode == CAMERA_PERMISSION_CODE) {
+//             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                Toast.makeText(this,  "Camera Permission Granted",
-                        Toast.LENGTH_SHORT).show();
-
-            } else {
-
-                Toast.makeText(this, "Camera Permission Denied",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Storage Permission Granted",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-
-                Toast.makeText(this, "Storage Permission Denied",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        }
-    }
+//                 Toast.makeText(this,  "Camera Permission Granted",
+//                         Toast.LENGTH_SHORT).show();
+//         }
+//     }
 
     /* ---- Stubs for Activity Lifestyle Code ---- */
     @Override
     protected void onStart(){
         super.onStart();
-
+        mediaPlayer.start();
         // Put onStart code here
 
         // Test
@@ -142,6 +146,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        mediaPlayer.start();
 
         // Put onResume code here
 
@@ -154,6 +159,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+        mediaPlayer.pause();
 
         // Put onPause code here
 
@@ -166,7 +172,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onRestart(){
         super.onRestart();
-
+        mediaPlayer.start();
         // Put onRestart code here
 
         // Test
@@ -178,6 +184,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
+        mediaPlayer.pause();
 
         // Put onStop code here
 
@@ -190,7 +197,7 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-
+        mediaPlayer.release();
         // Put onDestroy code here
 
         // Test

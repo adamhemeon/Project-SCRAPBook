@@ -7,8 +7,8 @@ public class ScoreKeeper {
 
     public ScoreKeeper()
     {
-        this.setComputerScore(0);
-        this.setPlayerScore(0);
+        this.playerScore = 0;
+        this.computerScore = 0;
     }
 
     public int getPlayerScore()

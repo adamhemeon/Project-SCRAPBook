@@ -2,7 +2,10 @@ package nscc.capstone.scrapbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,8 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AboutActivity extends AppCompatActivity {
 
     // Controls
-    TextView textViewSettingsHeader;
     Button btnReturnToMenu;
+    TextView textViewAboutHeader, textViewAboutMessage,
+            textViewAboutPermissionsHeader, textViewAboutPermissionsMessage,
+            textViewAboutPhotosHeader, textViewAboutPhotosMessage,
+            textViewAboutWinHeader, textViewAboutWinMessage, textViewAboutWinBeatsMessage,
+            textViewAboutFriendsHeader, textViewAboutFriendsMessage,
+            textViewAboutWhoHeader, textViewAboutWhoMessage, textViewAboutWhoGroupMessage,
+            textViewAboutCodeHeader, textViewAboutCodeMessage, textViewAboutCodeGitHubLink;
+
+    Animation scaleUp, scaleDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +31,43 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         // Controls
-        textViewSettingsHeader = findViewById(R.id.textViewSettingsHeader);
         btnReturnToMenu = findViewById(R.id.btnReturnToMenu);
+
+        textViewAboutHeader = findViewById(R.id.textViewAboutHeader);
+        textViewAboutMessage = findViewById(R.id.textViewAboutMessage);
+        textViewAboutPermissionsHeader = findViewById(R.id.textViewAboutPermissionsHeader);
+        textViewAboutPermissionsMessage = findViewById(R.id.textViewAboutPermissionsMessage);
+        textViewAboutPhotosHeader = findViewById(R.id.textViewAboutPhotosHeader);
+        textViewAboutPhotosMessage = findViewById(R.id.textViewAboutPhotosMessage);
+        textViewAboutWinHeader = findViewById(R.id.textViewAboutWinHeader);
+        textViewAboutWinMessage = findViewById(R.id.textViewAboutWinMessage);
+        textViewAboutWinBeatsMessage = findViewById(R.id.textViewAboutWinBeatsMessage);
+        textViewAboutFriendsHeader = findViewById(R.id.textViewAboutFriendsHeader);
+        textViewAboutFriendsMessage = findViewById(R.id.textViewAboutFriendsMessage);
+        textViewAboutWhoHeader = findViewById(R.id.textViewAboutWhoHeader);
+        textViewAboutWhoMessage = findViewById(R.id.textViewAboutWhoMessage);
+        textViewAboutWhoGroupMessage = findViewById(R.id.textViewAboutWhoGroupMessage);
+        textViewAboutCodeHeader = findViewById(R.id.textViewAboutCodeHeader);
+        textViewAboutCodeMessage = findViewById(R.id.textViewAboutCodeMessage);
+        textViewAboutCodeGitHubLink = findViewById(R.id.textViewAboutCodeGitHubLink);
+
+        // Set link
+        textViewAboutCodeGitHubLink.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
         // Listeners
         btnReturnToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // Do Animations
+                btnReturnToMenu.startAnimation(scaleUp);
+                btnReturnToMenu.startAnimation(scaleDown);
+
+                // Go back to Title Activity
                 Intent i = new Intent(AboutActivity.this, TitleActivity.class); // Goto Title Activity
                 startActivityForResult(i,1);
             }

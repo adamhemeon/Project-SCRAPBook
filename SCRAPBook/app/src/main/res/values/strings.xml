@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SCRAPBook</string>
-    <string name="btnPlayVsAI">Play vs AI</string>
+    <string name="btnPlayVsAI">Play vs Computer</string>
     <string name="btnPlayOnline">Play Online</string>
     <string name="btnSettings">Settings</string>
     <string name="btnReturnToMenu">Return To Menu</string>
@@ -9,7 +9,9 @@
     <string name="textViewComputerWins">Computer Wins!</string>
     <string name="textViewPlayerWins">Player Wins!</string>
     <string name="textViewYouWin">You Win!</string>
-    <string name="textViewYouLose">You Lose.</string>
+    <string name="textViewYouLose">You Lost…</string>
+    <string name="textViewYouTied">You Tied!</string>
+    <string name="textViewYouError">Did something error?</string>
     <string name="imageViewPlayerPhoto">Player Photo</string>
     <string name="imageViewComputerPhoto">Computer Photo</string>
     <string name="textViewSelectionHeader">Select Photos</string>
@@ -19,4 +21,26 @@
     <string name="startingScore">0 - 0</string>
     <string name="numPhotos">0/9</string>
     <string name="btnAbout">About</string>
+    <string name="tvAboutHeader">About</string>
+    <string name="tvAboutMessage">SCRAPBook is an Android game built with Android Studio that takes the gameplay of a classic Rock, Paper, Scissors game and incorporates users\' photos and color analysis to win.</string>
+    <string name="tvAboutPermissionsHeader">Why do I need to give camera permission to SCRAPBook?</string>
+    <string name="tvAboutPermissionsMessage">This game requires permission to access your photo gallery and camera to fully work. It uses the photos you choose to play the game against a saved bank of stock photos.</string>
+    <string name="tvAboutPhotosHeader">What happens to my photos?</string>
+    <string name="tvAboutPhotosMessage">They stay on your device, are never saved, and are only used to play the game! SCRAPBook does not collect or save your photos in any way.</string>
+    <string name="tvAboutWinHeader">How do I win?</string>
+    <string name="tvAboutWinMessage">SCRAPBook compares the RGB color value of each photo in succession and assigns it Red, Blue, or Green based on the majority percentage of that color in the photo.</string>
+    <string name="tvAboutWinBeatsMessage">Red beats Green. Green beats Blue. Blue beats Red.</string>
+    <string name="tvAboutFriendsHeader">Can I play with my friends? </string>
+    <string name="tvAboutFriendsMessage">Right now it’s just you versus the computer. Introducing a connection to the internet and sending your photos over the web could compromise the security of your photos! If we release online play we want users\' security to be our top priority and do it right.</string>
+    <string name="tvAboutWhoHeader">Who made this game?</string>
+    <string name="tvAboutWhoMessage">SCRAPBook was started as a Nova Scotia Community College student project for the IT Programming INFT 3000 Capstone course at the Halifax, NS IT Campus.</string>
+    <string name="tvAboutWhoGroupMessage">Project group: Adam Hemeon, Brady Getson, Craysyn Trottier, Jayden Morehouse, Kieran London</string>
+    <string name="tvAboutCodeHeader">Can I see the code?</string>
+    <string name="tvAboutCodeMessage">Yes! You can see the code that makes up this game and the list of contributors by visiting the project GitHub."</string>
+    <string name="tvAboutCodeGitHubLink"><a href="https://github.com/adamhemeon/Project-SCRAPBook">https://github.com/adamhemeon/Project-SCRAPBook</a></string>
+    <string name="btnGoToScore">Go To Score</string>
+    <string name="playerwins">Player Wins!!</string>
+    <string name="conputerwins">Computer Wins...</string>
+    <string name="tie">TIE!</string>
+    <string name="error">...</string>
 </resources>

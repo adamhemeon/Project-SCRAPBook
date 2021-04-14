@@ -7,16 +7,21 @@ import androidx.core.content.ContextCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import android.content.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.widget.Button;
@@ -24,14 +29,18 @@ import android.widget.Toast;
 
 public class PhotoActivity extends AppCompatActivity {
 
-    // Controls
+    //Controls
     TextView textViewSelectionHeader, textViewNumPhotos;
     Button btnCamera, btnGallery, btnStart;
     ImageView imageViewPhoto1, imageViewPhoto2, imageViewPhoto3,
             imageViewPhoto4, imageViewPhoto5, imageViewPhoto6,
             imageViewPhoto7, imageViewPhoto8, imageViewPhoto9;
 
+    Animation scaleUp, scaleDown;
+
     ClipData cd;
+
+    MediaPlayer mediaPlayer;
 
     static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     int photoCount;
@@ -41,6 +50,8 @@ public class PhotoActivity extends AppCompatActivity {
 
     int CAMERA_PERMISSION_CODE = 100;
     int STORAGE_PERMISSION_CODE = 101;
+
+    boolean hasPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,10 @@ public class PhotoActivity extends AppCompatActivity {
         btnCamera = findViewById(R.id.btnCamera);
         btnGallery = findViewById(R.id.btnGallery);
         btnStart = findViewById(R.id.btnStart);
+
+        // Animations
+        scaleUp = AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
         btnStart.setEnabled(false);
         //btnStart.setEnabled(true);
@@ -71,6 +86,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto1.startAnimation(scaleUp);
+                imageViewPhoto1.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 1) {
                     bitmapList.remove(0);
                     setDefaultImages();
@@ -84,6 +104,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto2.startAnimation(scaleUp);
+                imageViewPhoto2.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 2) {
                     bitmapList.remove(1);
                     setDefaultImages();
@@ -97,6 +122,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto3.startAnimation(scaleUp);
+                imageViewPhoto3.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 3) {
                     bitmapList.remove(2);
                     setDefaultImages();
@@ -110,6 +140,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto4.startAnimation(scaleUp);
+                imageViewPhoto4.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 4) {
                     bitmapList.remove(3);
                     setDefaultImages();
@@ -123,6 +158,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto5.startAnimation(scaleUp);
+                imageViewPhoto5.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 5) {
                     bitmapList.remove(4);
                     setDefaultImages();
@@ -136,6 +176,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto6.startAnimation(scaleUp);
+                imageViewPhoto6.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 6) {
                     bitmapList.remove(5);
                     setDefaultImages();
@@ -149,6 +194,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto7.startAnimation(scaleUp);
+                imageViewPhoto7.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 7) {
                     bitmapList.remove(6);
                     setDefaultImages();
@@ -162,6 +212,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto8.startAnimation(scaleUp);
+                imageViewPhoto8.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 8) {
                     bitmapList.remove(7);
                     setDefaultImages();
@@ -175,6 +230,11 @@ public class PhotoActivity extends AppCompatActivity {
         imageViewPhoto9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Do Animations
+                imageViewPhoto9.startAnimation(scaleUp);
+                imageViewPhoto9.startAnimation(scaleDown);
+
                 if(bitmapList.size() >= 9) {
                     bitmapList.remove(8);
                     setDefaultImages();
@@ -189,8 +249,21 @@ public class PhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Go to Battle Activity
                 Intent i = new Intent(PhotoActivity.this, BattleActivity.class); // Goto Battle Activity
 
+                // Do Animations
+                btnStart.startAnimation(scaleUp);
+                btnStart.startAnimation(scaleDown);
+
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.thunder_sheet);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // Go to Battle Activity
                 startActivity(i);
             }
         });
@@ -198,41 +271,83 @@ public class PhotoActivity extends AppCompatActivity {
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK);
-                i.setType("image/*");
 
-                i.setAction(Intent.ACTION_PICK);
-                i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE);
 
-                try {
-                    startActivityForResult(Intent.createChooser(i,"Select Image"),
-                            GALLERY_CODE);
-                } catch (ActivityNotFoundException e) {
+                if (hasPermission) {
+                    // Do Animations
+                    btnGallery.startAnimation(scaleUp);
+                    btnGallery.startAnimation(scaleDown);
 
+                    // Get Images
+                    Intent i = new Intent(Intent.ACTION_PICK);
+                    i.setType("image/*");
+
+                    i.setAction(Intent.ACTION_PICK);
+                    i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
+                    try {
+                        startActivityForResult(Intent.createChooser(i, "Select Image"),
+                                GALLERY_CODE);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
-
+          
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Current state. Will prevent crash but will only ask once.
-                if (checkPermission(Manifest.permission.CAMERA,
-                        CAMERA_CODE)) {
-                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    try {
-                        startActivityForResult(i, CAMERA_CODE);
-                    } catch (ActivityNotFoundException e) {
 
+                hasPermission = checkPlayPermission(Manifest.permission.CAMERA,
+                        CAMERA_CODE);
+
+                if(hasPermission) {
+                    // Do Animations
+                    btnCamera.startAnimation(scaleUp);
+                    btnCamera.startAnimation(scaleDown);
+
+                    // Current state. Will prevent crash but will only ask once.
+                    if (checkPermission(Manifest.permission.CAMERA,
+                            CAMERA_CODE)) {
+                        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        try {
+                            startActivityForResult(i, CAMERA_CODE);
+                        } catch (ActivityNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                     }
-                }else{
-                    requestPermission(Manifest.permission.CAMERA, CAMERA_CODE);
                 }
             }
         });
-
-
     }//end onCreate
+
+    public boolean checkPlayPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+            btnGallery.setEnabled(false);
+            btnGallery.setText("No Permissions!");
+
+            btnCamera.setEnabled(false);
+            btnCamera.setText("No Permissions!");
+
+            Toast.makeText(this, "Please accept the required permissions.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            btnGallery.setEnabled(true);
+            btnGallery.setText(R.string.btnGallery);
+
+            btnCamera.setEnabled(true);
+            btnCamera.setText(R.string.btnCamera);
+        }
+        return true;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int result, Intent intent) {
@@ -349,15 +464,15 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     protected void setDefaultImages(){
-        imageViewPhoto1.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto2.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto3.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto4.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto5.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto6.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto7.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto8.setImageResource(R.drawable.ic_launcher_background);
-        imageViewPhoto9.setImageResource(R.drawable.ic_launcher_background);
+        imageViewPhoto1.setImageResource(R.drawable.blank_image);
+        imageViewPhoto2.setImageResource(R.drawable.blank_image);
+        imageViewPhoto3.setImageResource(R.drawable.blank_image);
+        imageViewPhoto4.setImageResource(R.drawable.blank_image);
+        imageViewPhoto5.setImageResource(R.drawable.blank_image);
+        imageViewPhoto6.setImageResource(R.drawable.blank_image);
+        imageViewPhoto7.setImageResource(R.drawable.blank_image);
+        imageViewPhoto8.setImageResource(R.drawable.blank_image);
+        imageViewPhoto9.setImageResource(R.drawable.blank_image);
     }
 
     protected void setImageCount(){
