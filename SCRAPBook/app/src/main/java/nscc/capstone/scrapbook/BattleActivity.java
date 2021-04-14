@@ -9,6 +9,7 @@ import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.*;
 import android.view.*;
 import android.view.animation.Animation;
@@ -28,6 +29,9 @@ public class BattleActivity extends AppCompatActivity {
     TextView textViewPlayerWins, textViewComputerWins, textViewBattleVS;
     ImageView imageViewPlayerPhoto, imageViewComputerPhoto;
     Button btnGoToScore;
+
+    // Mediaplayer
+    MediaPlayer mediaPlayer;
 
     // Animations
     Animation scaleUp, scaleDown;
@@ -101,6 +105,9 @@ public class BattleActivity extends AppCompatActivity {
         textViewPlayerWins.setVisibility(View.VISIBLE);
         textViewComputerWins.setVisibility(View.INVISIBLE);
 
+        // Set mediaplayer sound just in case
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.quick_murm);
+
         // Get the computer images and add them to the array list
         getComputerImages();
 
@@ -128,18 +135,22 @@ public class BattleActivity extends AppCompatActivity {
                 switch (winSequence[loopCounter])
                 {
                     case 0: // COMPUTER
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.quick_punch);
                         textViewPlayerWins.setText(R.string.conputerwins);
                         textViewPlayerWins.setTextColor(Color.rgb(230, 24, 9));
                         break;
                     case 1: // PLAYER
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.quick_cheer);
                         textViewPlayerWins.setText(R.string.playerwins);
                         textViewPlayerWins.setTextColor(Color.rgb(9, 38, 230));
                         break;
                     case 2: // TIE
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.quick_murm);
                         textViewPlayerWins.setText(R.string.tie);
                         textViewPlayerWins.setTextColor(Color.rgb(230, 186, 9));
                         break;
                     default: // ERROR
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.quick_murm);
                         textViewPlayerWins.setText(R.string.error);
                         break;
                 }
@@ -159,10 +170,7 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 //increments the counter and starts next animation
-                if (loopCounter < (NUM_PHOTOS-1)) {
-                    loopCounter += 1;
-                    pauseSet.start();
-                }
+                pauseSet.start();
             }
 
             @Override
@@ -180,12 +188,15 @@ public class BattleActivity extends AppCompatActivity {
         pauseSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                // Unused
+                mediaPlayer.start();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                slideOutSet.start();
+                if (loopCounter < (NUM_PHOTOS-1)) {
+                    loopCounter += 1;
+                    slideOutSet.start();
+                }
             }
 
             @Override
@@ -231,6 +242,11 @@ public class BattleActivity extends AppCompatActivity {
                 i.putExtra("playerScore", score.getPlayerScore() );
                 i.putExtra("computerScore", score.getComputerScore() );
 
+                // Pause on moving to next screen to prevent sounds from continuing.
+                slideInSet.pause();
+                pauseSet.pause();
+                slideOutSet.pause();
+
                 // Play Animation
                 btnGoToScore.startAnimation(scaleUp);
                 btnGoToScore.startAnimation(scaleDown);
@@ -265,7 +281,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-
+        mediaPlayer.pause();
         // Put onPause code here
 
         // Test
@@ -289,7 +305,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-
+        mediaPlayer.pause();
         // Put onStop code here
 
         // Test
@@ -301,7 +317,7 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-
+        mediaPlayer.release();
         // Put onDestroy code here
 
         // Test
