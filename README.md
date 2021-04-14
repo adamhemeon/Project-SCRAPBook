@@ -6,4 +6,8 @@ Students: [Adam Hemeon, Brady Getson, Craysyn Trottier, Jayden Morehouse, Kieran
 Project SCRAPBook is an Android game built with Android Studio that takes the gameplay of a classic Rock, Paper, Scissors game which incorporates users' photos and color analysis to win.
 
 
-Main Testing Pixel 2 AVD Android API 29
+Main Testing Pixel 2 and Pixel C AVD Android API 29
+
+Intro: https://youtu.be/qDa35J4LGsM
+Final Presentation: https://youtu.be/Em7TUoBHD-s
+
